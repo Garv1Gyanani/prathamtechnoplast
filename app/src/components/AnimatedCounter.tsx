@@ -68,7 +68,7 @@ export default function AnimatedCounter({ value, duration = 1500, delay = 0 }: A
   }, [hasStarted, value, duration, delay]);
 
   return (
-    <span ref={ref} className="font-mono text-[64px] leading-none tracking-tight" style={{ color: '#F3C623' }}>
+    <span ref={ref} className="font-mono text-[64px] leading-none tracking-tight" style={{ color: '#FFD700' }}>
       {display}
     </span>
   );

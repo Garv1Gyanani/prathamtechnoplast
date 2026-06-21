@@ -5,12 +5,11 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        cream: '#FEF3E2',
-        gold: '#F3C623',
-        amber: '#FFB22C',
-        orange: '#FA812F',
-        ink: '#2B1B0E',
-        dusk: '#2A170B',
+        teal: '#00809D',
+        cream: '#FCF8DD',
+        gold: '#FFD700',
+        golddark: '#D3AF37',
+        navy: '#0B1F4D',
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -56,7 +55,7 @@ module.exports = {
         },
       },
       fontFamily: {
-        display: ['"Playfair Display"', 'serif'],
+        display: ['"Outfit"', 'sans-serif'],
         body: ['Inter', 'sans-serif'],
         mono: ['"JetBrains Mono"', 'monospace'],
       },
@@ -69,9 +68,10 @@ module.exports = {
       },
       boxShadow: {
         xs: "0 1px 2px 0 rgb(0 0 0 / 0.05)",
-        card: "0 4px 24px rgba(43,27,14,0.04)",
-        "card-hover": "0 12px 40px rgba(43,27,14,0.08)",
-        gold: "0 4px 20px rgba(243,198,35,0.3)",
+        card: "0 4px 24px rgba(0,128,157,0.04)",
+        "card-hover": "0 12px 40px rgba(0,128,157,0.08)",
+        gold: "0 4px 20px rgba(255,215,0,0.3)",
+        teal: "0 4px 20px rgba(0,128,157,0.3)",
       },
       keyframes: {
         "accordion-down": {

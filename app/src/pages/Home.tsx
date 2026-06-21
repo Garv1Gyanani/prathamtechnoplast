@@ -1,74 +1,140 @@
 import { useEffect, useRef, useState } from 'react';
-import { Link } from 'react-router';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import {
-  ArrowRight, ChevronDown, ChevronLeft, ChevronRight,
-  Award, Settings, Shield, Phone, DollarSign, Clock,
-  CheckCircle, MapPin, Users, FileCheck, Factory,
+  ChevronDown, CheckCircle, Phone, MessageCircle, FileCheck, Shield, Award,
+  ClipboardCheck, BookOpen, Settings, Users, Clock, Download, Factory,
+  FileText, Stethoscope, RefreshCw,
 } from 'lucide-react';
 import GradientText from '../components/GradientText';
-import AnimatedCounter from '../components/AnimatedCounter';
 import WhatsAppButton from '../components/WhatsAppButton';
 
 gsap.registerPlugin(ScrollTrigger);
 
-/* ─────────────────── DATA ─────────────────── */
-
-const products = [
-  { name: 'Hydrostatic Pressure Test Apparatus', spec: 'Up to 160 bar, multi-station', slug: 'hydrostatic-pressure-test', image: '/machine-hydrostatic.webp' },
-  { name: 'Bursting Pressure Testing Machine', spec: 'Digital display, automatic test', slug: 'bursting-pressure-test', image: '/machine-bursting.webp' },
-  { name: 'Impact Testing Machine (Falling Weight)', spec: 'EN 744/ISO 3127 compliant', slug: 'impact-testing', image: '/machine-impact.webp' },
-  { name: 'Ring Stiffness Testing Machine', spec: 'ISO 9969, EN 1228 standard', slug: 'ring-stiffness-test', image: '/machine-ring-stiffness.webp' },
-  { name: 'Tensile Testing Machine', spec: '50kN capacity, servo-controlled', slug: 'tensile-testing', image: '/machine-tensile.webp' },
-  { name: 'Vicat Softening Point Apparatus', spec: 'ISO 306, ASTM D1525', slug: 'vicat-softening-point', image: '/machine-vicat.webp' },
-  { name: 'Melt Flow Index Tester', spec: 'ISO 1133, ASTM D1238', slug: 'melt-flow-index', image: '/machine-melt-flow.webp' },
-  { name: 'Pipe Notching Machine', spec: 'Precise sample preparation', slug: 'pipe-notching', image: '/machine-notching.webp' },
+const services = [
+  {
+    title: 'BIS License (ISI Mark)',
+    desc: 'New License / Renewal',
+    items: ['Complete support for ISI certification under BIS standards.'],
+    icon: Award,
+    id: 'bis',
+  },
+  {
+    title: 'ISO Certification',
+    desc: 'ISO 9001, 14001, 45001 & more',
+    items: ['Improve quality, build trust and grow your business.'],
+    icon: Shield,
+    id: 'iso',
+  },
+  {
+    title: 'ISI Mark Certification',
+    desc: 'For HDPE Pipes, Fittings & Other Products',
+    items: ['As per applicable standards.'],
+    icon: CheckCircle,
+    id: 'isi',
+  },
+  {
+    title: 'Calibration Certificate',
+    desc: 'All types of measuring instruments',
+    items: ['Calibration certificates for pressure gauges, testing instruments & lab equipment.'],
+    icon: Settings,
+    id: 'calibration',
+  },
+  {
+    title: 'Trademark Registration',
+    desc: 'Protect your brand identity',
+    items: ['Registered trademark protection for your brand.'],
+    icon: BookOpen,
+    id: 'trademark',
+  },
+  {
+    title: 'BIS Documentation & Compliance',
+    desc: 'End-to-end documentation support',
+    items: ['Complete documentation for BIS certification process.'],
+    icon: FileText,
+    id: 'documentation',
+  },
+  {
+    title: 'Factory Inspection Coordination',
+    desc: 'Smooth coordination with BIS',
+    items: ['Expert coordination with BIS authorities for factory inspection.'],
+    icon: ClipboardCheck,
+    id: 'inspection',
+  },
+  {
+    title: 'Test Report Arrangement',
+    desc: 'From BIS recognized laboratories',
+    items: ['Test report arrangement from BIS approved labs.'],
+    icon: FileCheck,
+    id: 'testreport',
+  },
+  {
+    title: 'Consultancy Support',
+    desc: 'Expert guidance at every step',
+    items: ['Expert guidance throughout the BIS certification process.'],
+    icon: Stethoscope,
+    id: 'consultancy',
+  },
+  {
+    title: 'Renewal & Post Certification Support',
+    desc: 'On-time renewal & continuous support',
+    items: ['Continuous support assurance after certification.'],
+    icon: RefreshCw,
+    id: 'renewal',
+  },
 ];
 
-const features = [
-  { icon: Award, title: '25+ Years Experience', description: 'Decades of expertise in plastic pipe testing machine manufacturing, trusted by industry leaders across India.' },
-  { icon: Settings, title: 'Customized Solutions', description: 'Every machine tailored to your specific testing requirements, pipe dimensions, and industry standards.' },
-  { icon: Shield, title: 'Precision Engineering', description: 'ISO-compliant testing accuracy with calibrated instruments and rigorous quality control at every stage.' },
-  { icon: Phone, title: 'PAN India Support', description: 'Comprehensive service network covering every state, with trained technicians and quick spare parts availability.' },
-  { icon: DollarSign, title: 'Competitive Pricing', description: 'Direct-from-manufacturer pricing without middlemen, ensuring the best value for your investment.' },
-  { icon: Clock, title: 'Reliable After-Sales', description: 'Dedicated support team, annual maintenance contracts, and remote troubleshooting assistance.' },
+const processSteps = [
+  { step: '01', title: 'Initial Consultation', desc: 'We understand your requirements and assess your current compliance status.' },
+  { step: '02', title: 'Documentation Preparation', desc: 'Our experts prepare all necessary documents and applications.' },
+  { step: '03', title: 'Product Testing', desc: 'Coordination with BIS-approved labs for product sample testing.' },
+  { step: '04', title: 'Factory Inspection', desc: 'Pre-inspection preparation and coordination with authorities.' },
+  { step: '05', title: 'Certification Approval', desc: 'End-to-end follow-up until certificate is issued.' },
+  { step: '06', title: 'Renewal & Ongoing Support', desc: 'Timely renewal reminders and ongoing compliance guidance.' },
 ];
 
 const industries = [
-  { name: 'PVC & uPVC Manufacturing', line: 'Pipe extrusion & quality testing', accent: '#FA812F' },
-  { name: 'HDPE & PPR Manufacturing', line: 'Pressure pipe testing solutions', accent: '#FFB22C' },
-  { name: 'Irrigation Systems', line: 'Drip & sprinkler pipe testing', accent: '#F3C623' },
-  { name: 'Testing Laboratories', line: 'R&D and compliance testing', accent: 'linear-gradient(90deg, #FA812F, #FFB22C)' },
+  { name: 'HDPE Pipe Manufacturers', desc: 'Complete BIS/ISI certification for HDPE pipe production.', image: '/industry-hdpe.webp' },
+  { name: 'PVC Pipe Manufacturers', desc: 'ISI mark certification for PVC pipe manufacturers.', image: '/industry-pvc.webp' },
+  { name: 'uPVC Pipe Manufacturers', desc: 'Compliance solutions for uPVC window & pipe manufacturers.', image: '/industry-pvc.webp' },
+  { name: 'SWR Pipe Manufacturers', desc: 'SWR pipe certification and BIS license support.', image: '/industry-hdpe.webp' },
+  { name: 'Pipe Fittings Manufacturers', desc: 'ISI certification for all types of pipe fittings.', image: '/industry-irrigation.webp' },
+  { name: 'Irrigation Product Manufacturers', desc: 'BIS certification for irrigation pipe and component makers.', image: '/industry-irrigation.webp' },
+];
+
+const whyChoose = [
+  { icon: Award, title: 'Experienced in BIS & Regulatory Services', desc: 'Deep expertise in BIS, ISI, ISO and regulatory compliance for pipe manufacturers.' },
+  { icon: BookOpen, title: 'In-depth Knowledge of Standards', desc: 'Thorough understanding of all applicable BIS and ISO standards for your products.' },
+  { icon: CheckCircle, title: 'Hassle-free Process', desc: 'We handle all the complexity so you can focus on your manufacturing.' },
+  { icon: FileCheck, title: 'Transparent & Reliable Services', desc: 'Complete transparency at every stage with regular updates and progress reports.' },
+  { icon: Users, title: 'Customer Satisfaction First', desc: 'Your satisfaction is our priority. We work until you get certified.' },
+  { icon: Shield, title: 'Post Certification Support', desc: 'Continued support even after certification to ensure ongoing compliance.' },
+];
+
+const faqItems = [
+  { q: 'How long does BIS certification take?', a: 'The BIS certification process typically takes 4-6 months from application to approval, depending on product testing and factory inspection schedules.' },
+  { q: 'What documents are required?', a: 'Key documents include business registration, manufacturing process flow, product test reports, factory layout, quality manual, and address proofs.' },
+  { q: 'What is the cost of BIS certification?', a: 'Costs vary based on product category, number of variants, factory location, and testing requirements. Contact us for a customized quote.' },
+  { q: 'Is factory inspection mandatory?', a: 'Yes, factory inspection is a mandatory part of BIS certification. We help you prepare and coordinate the inspection process.' },
+  { q: 'How often is renewal required?', a: 'BIS license is typically valid for one year and requires annual renewal. We provide timely reminders and full renewal support.' },
 ];
 
 const testimonials = [
-  { quote: 'Sunrise Enterprises delivered our hydrostatic testing machine within 4 weeks. The build quality is exceptional and their Jaipur team provided excellent installation support.', name: 'Rajesh Sharma', title: 'Plant Head, Apex Pipes Ltd, Delhi' },
-  { quote: 'We\'ve purchased three machines from Sunrise over the past two years. Their after-sales support across Rajasthan is prompt and their engineers truly understand pipe testing.', name: 'Priya Mehta', title: 'QA Manager, HDPE Solutions, Ahmedabad' },
-  { quote: 'The customized ring stiffness tester they built for our large-diameter pipes works flawlessly. Truly a partner who understands manufacturing needs.', name: 'Vikram Patel', title: 'Director, Gujarat Polymer Industries' },
-  { quote: 'Their PAN India service network gave us confidence to choose Sunrise. The Vicat apparatus is precise and calibration-ready. Highly recommended.', name: 'Anil Kumar', title: 'Lab Incharge, Central Testing Lab, Bangalore' },
+  { quote: 'Pratham Technoplast handled our entire BIS certification process. Their expertise in documentation and BIS coordination saved us months of effort.', author: 'HDPE Pipe Manufacturer' },
+  { quote: 'Professional, transparent, and efficient. They guided us through ISI certification for our PVC pipes with complete hand-holding.', author: 'PVC Pipe Factory' },
+  { quote: 'We needed ISO 9001 certification urgently. Pratham delivered within the promised timeline. Highly recommended.', author: 'Fittings Manufacturer' },
 ];
-
-const certifications = [
-  { icon: Award, label: 'ISO 9001:2015', sublabel: 'Quality Management' },
-  { icon: Shield, label: 'CE Certified', sublabel: 'European Conformity' },
-  { icon: FileCheck, label: 'BIS Compliant', sublabel: 'Indian Standards' },
-  { icon: Factory, label: 'Made in India', sublabel: 'Jaipur, Rajasthan' },
-];
-
-/* ─────────────────── HOME PAGE ─────────────────── */
 
 export default function Home() {
   const heroRef = useRef<HTMLDivElement>(null);
-  const heroContentRef = useRef<HTMLDivElement>(null);
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [checklistForm, setChecklistForm] = useState({ name: '', phone: '', email: '' });
+  const [checklistSubmitted, setChecklistSubmitted] = useState(false);
 
-  /* GSAP Hero animation + parallax */
   useEffect(() => {
-    if (!heroRef.current || !heroContentRef.current) return;
-
+    if (!heroRef.current) return;
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({ delay: 0.3 });
-
       tl.fromTo('.hero-bg', { scale: 1.1, opacity: 0 }, { scale: 1, opacity: 1, duration: 1.2, ease: 'power2.out' })
         .fromTo('.hero-gradient-mesh', { opacity: 0 }, { opacity: 1, duration: 0.8 }, '-=0.6')
         .fromTo('.hero-eyebrow', { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5 }, '-=0.4')
@@ -77,11 +143,9 @@ export default function Home() {
         .fromTo('.hero-cta', { y: 15, opacity: 0 }, { y: 0, opacity: 1, stagger: 0.1, duration: 0.5 }, '-=0.2')
         .fromTo('.hero-scroll', { opacity: 0 }, { opacity: 1, duration: 0.5 }, '-=0.1');
     }, heroRef);
-
     return () => ctx.revert();
   }, []);
 
-  /* Section reveal observer */
   useEffect(() => {
     let observer: IntersectionObserver | null = null;
     const timer = setTimeout(() => {
@@ -96,15 +160,17 @@ export default function Home() {
         },
         { threshold: 0.05, rootMargin: '0px 0px -10% 0px' }
       );
-
       document.querySelectorAll('.reveal-section, .reveal-stagger').forEach((el) => observer!.observe(el));
     }, 100);
-
-    return () => {
-      clearTimeout(timer);
-      observer?.disconnect();
-    };
+    return () => { clearTimeout(timer); observer?.disconnect(); };
   }, []);
+
+  const handleChecklistDownload = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (checklistForm.name && checklistForm.phone) {
+      setChecklistSubmitted(true);
+    }
+  };
 
   return (
     <div>
@@ -119,8 +185,6 @@ export default function Home() {
         .reveal-stagger.revealed > *:nth-child(4) { transition-delay: 0.3s; }
         .reveal-stagger.revealed > *:nth-child(5) { transition-delay: 0.4s; }
         .reveal-stagger.revealed > *:nth-child(6) { transition-delay: 0.5s; }
-        .reveal-stagger.revealed > *:nth-child(7) { transition-delay: 0.6s; }
-        .reveal-stagger.revealed > *:nth-child(8) { transition-delay: 0.7s; }
         @keyframes gradient-shift {
           0%, 100% { transform: translate(0, 0); }
           50% { transform: translate(-2%, 1%); }
@@ -132,597 +196,531 @@ export default function Home() {
         }
       `}</style>
 
-      {/* ─── SECTION 1: HERO ─── */}
-      <section
-        ref={heroRef}
-        className="relative w-full min-h-[100dvh] overflow-hidden flex items-center justify-center"
-      >
-        {/* Background Image */}
-        <div
-          className="hero-bg absolute inset-0 z-0"
-          style={{
-            backgroundImage: 'url(/pipes-water-hero.webp)',
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-          }}
-        />
-        {/* Dark Overlay */}
-        <div className="absolute inset-0 z-[1]" style={{ backgroundColor: 'rgba(42,23,11,0.65)' }} />
-        {/* Animated Gradient Mesh */}
-        <div
-          className="hero-gradient-mesh absolute inset-0 z-[2] opacity-0"
-          style={{
-            background: 'radial-gradient(ellipse at 30% 40%, rgba(250,129,47,0.15) 0%, transparent 50%), radial-gradient(ellipse at 70% 60%, rgba(255,178,44,0.15) 0%, transparent 50%), radial-gradient(ellipse at 50% 50%, rgba(243,198,35,0.1) 0%, transparent 50%)',
-            animation: 'gradient-shift 15s ease infinite',
-          }}
-        />
-        {/* Vignette */}
-        <div
-          className="absolute inset-0 z-[3]"
-          style={{ background: 'radial-gradient(ellipse at center, transparent 0%, rgba(42,23,11,0.5) 100%)' }}
-        />
-
-        {/* Content */}
-        <div
-          ref={heroContentRef}
-          className="relative z-10 text-center px-6 max-w-[900px] mx-auto"
-        >
-          <p
-            className="hero-eyebrow font-body text-[12px] font-semibold tracking-[0.12em] uppercase mb-6"
-            style={{ color: '#F3C623' }}
-          >
-            PLASTIC PIPE TESTING MACHINES
-          </p>
-
-          <h1 className="hero-headline font-display text-[40px] sm:text-[56px] lg:text-[72px] font-extrabold leading-[1.05] tracking-[-0.02em] text-shadow-hero" style={{ color: '#FEF3E2' }}>
-            Precision Testing
-            <br />
-            <GradientText as="span">for Every Pipe</GradientText>
-          </h1>
-
-          <p
-            className="hero-subtitle font-body text-[16px] lg:text-[18px] leading-relaxed max-w-[640px] mx-auto mt-6"
-            style={{ color: 'rgba(254,243,226,0.8)' }}
-          >
-            Leading manufacturer of hydrostatic, bursting, impact, and specialized testing equipment for PVC, HDPE, PPR & CPVC pipe manufacturers across India.
-          </p>
-
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-10">
-            <Link
-              to="/products"
-              className="hero-cta font-body text-[14px] font-semibold px-8 py-3.5 rounded-xl transition-all duration-300 hover:scale-[1.03]"
-              style={{ backgroundColor: '#F3C623', color: '#2A170B' }}
-              onMouseEnter={(e) => {
-                (e.target as HTMLElement).style.backgroundColor = '#FFB22C';
-                (e.target as HTMLElement).style.boxShadow = '0 4px 20px rgba(243,198,35,0.3)';
-              }}
-              onMouseLeave={(e) => {
-                (e.target as HTMLElement).style.backgroundColor = '#F3C623';
-                (e.target as HTMLElement).style.boxShadow = 'none';
-              }}
-            >
-              Explore Our Machines
-            </Link>
-            <Link
-              to="/contact"
-              className="hero-cta font-body text-[14px] font-semibold px-8 py-3.5 rounded-full transition-all duration-300 hover:scale-[1.03]"
-              style={{ border: '2px solid #F3C623', color: '#F3C623' }}
-              onMouseEnter={(e) => {
-                (e.target as HTMLElement).style.backgroundColor = '#F3C623';
-                (e.target as HTMLElement).style.color = '#2A170B';
-              }}
-              onMouseLeave={(e) => {
-                (e.target as HTMLElement).style.backgroundColor = 'transparent';
-                (e.target as HTMLElement).style.color = '#F3C623';
-              }}
-            >
-              Get a Quote
-            </Link>
-          </div>
+      {/* ─── HERO ─── */}
+      <section ref={heroRef} className="relative w-full min-h-[100dvh] overflow-hidden flex items-center">
+        {/* Full-width banner image */}
+        <div className="hero-bg absolute inset-0 z-0">
+          <img
+            src="/d39cb358-8155-45d8-9493-4fc7314fde82.png"
+            alt="Pratham Technoplast"
+            className="w-full h-full object-cover object-center"
+          />
         </div>
 
-        {/* Scroll Indicator */}
-        <div
-          className="hero-scroll absolute bottom-10 left-1/2 -translate-x-1/2 z-10"
-        >
-          <ChevronDown
-            size={24}
-            className="animate-bounce-slow"
-            style={{ color: 'rgba(254,243,226,0.5)' }}
-          />
+        {/* Left-side dark overlay for text readability */}
+        <div className="absolute inset-0 z-[1]" style={{
+          background: 'linear-gradient(90deg, rgba(11,31,77,0.92) 0%, rgba(11,31,77,0.80) 40%, rgba(11,31,77,0.30) 65%, rgba(11,31,77,0.05) 100%)',
+        }} />
+
+        {/* Subtle gold accent glow */}
+        <div className="hero-gradient-mesh absolute inset-0 z-[2] opacity-0" style={{
+          background: 'radial-gradient(ellipse at 15% 50%, rgba(255,215,0,0.06) 0%, transparent 50%)',
+          animation: 'gradient-shift 15s ease infinite',
+        }} />
+
+        <div className="relative z-10 w-full px-6 lg:px-12 max-w-[1280px] mx-auto" style={{ paddingTop: '80px', paddingBottom: '80px' }}>
+          <div className="lg:w-[50%] md:max-w-[580px]">
+          <p className="hero-eyebrow font-body text-[12px] font-semibold tracking-[0.12em] uppercase mb-6" style={{ color: '#FFD700' }}>
+            Your Trusted Partner in Quality, Compliance & Certification
+          </p>
+            <h1 className="hero-headline font-display text-[36px] sm:text-[48px] lg:text-[60px] font-extrabold leading-[1.05] tracking-[-0.02em]" style={{ color: '#FCF8DD' }}>
+              BIS, ISI & ISO Certification
+              <br />
+              <GradientText as="span">Experts for Pipe Manufacturers</GradientText>
+            </h1>
+            <p className="hero-subtitle font-body text-[16px] lg:text-[18px] leading-relaxed mt-6" style={{ color: 'rgba(252,248,221,0.8)' }}>
+              End-to-end support for BIS License, ISI Mark Certification, ISO Certification, Calibration, Trademark Registration, Documentation & Factory Inspection Coordination.
+            </p>
+            <div className="flex flex-col sm:flex-row items-start gap-4 mt-10">
+              <a
+                href="https://wa.me/919829050308"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hero-cta font-body text-[14px] font-semibold px-8 py-3.5 rounded-xl transition-all duration-300 hover:scale-[1.03] inline-flex items-center gap-2"
+                style={{ backgroundColor: '#FFD700', color: '#0B1F4D' }}
+                onMouseEnter={(e) => {
+                  (e.target as HTMLElement).style.backgroundColor = '#D3AF37';
+                  (e.target as HTMLElement).style.boxShadow = '0 4px 20px rgba(255,215,0,0.3)';
+                }}
+                onMouseLeave={(e) => {
+                  (e.target as HTMLElement).style.backgroundColor = '#FFD700';
+                  (e.target as HTMLElement).style.boxShadow = 'none';
+                }}
+              >
+                <MessageCircle size={18} /> Get Free Consultation
+              </a>
+              <a
+                href="https://wa.me/919829050308"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hero-cta font-body text-[14px] font-semibold px-8 py-3.5 rounded-full transition-all duration-300 hover:scale-[1.03] inline-flex items-center gap-2"
+                style={{ border: '2px solid #FFD700', color: '#FFD700' }}
+                onMouseEnter={(e) => {
+                  (e.target as HTMLElement).style.backgroundColor = '#FFD700';
+                  (e.target as HTMLElement).style.color = '#0B1F4D';
+                }}
+                onMouseLeave={(e) => {
+                  (e.target as HTMLElement).style.backgroundColor = 'transparent';
+                  (e.target as HTMLElement).style.color = '#FFD700';
+                }}
+              >
+                <MessageCircle size={18} /> WhatsApp Now
+              </a>
+            </div>
+          </div>
+        </div>
+        <div className="hero-scroll absolute bottom-10 left-1/2 -translate-x-1/2 z-10">
+          <ChevronDown size={24} className="animate-bounce-slow" style={{ color: 'rgba(252,248,221,0.5)' }} />
         </div>
       </section>
 
-      {/* ─── SECTION 2: STATS BAR ─── */}
-      <StatsBar />
+      {/* ─── TRUST STRIP ─── */}
+      <section className="reveal-section" style={{ backgroundColor: '#0B1F4D', padding: '48px 0' }}>
+        <div className="max-w-[1280px] mx-auto px-6 lg:px-12">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-8">
+            {[
+              { icon: CheckCircle, label: '100% Compliance Support' },
+              { icon: FileCheck, label: 'End-to-End Documentation' },
+              { icon: Award, label: 'Expert Consultancy' },
+              { icon: Clock, label: 'Timely Processing' },
+              { icon: Shield, label: 'Post Certification Support' },
+            ].map((item, i) => (
+              <div key={i} className="flex flex-col items-center text-center gap-3">
+                <item.icon size={24} style={{ color: '#FFD700' }} />
+                <span className="font-body text-[13px] font-medium leading-tight" style={{ color: 'rgba(252,248,221,0.7)' }}>
+                  {item.label}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
-      {/* ─── SECTION 3: PRODUCT SHOWCASE ─── */}
-      <ProductShowcase />
+      {/* ─── SERVICES ─── */}
+      <section className="reveal-section" style={{ backgroundColor: '#FCF8DD', padding: '120px 0' }}>
+        <div className="max-w-[1280px] mx-auto px-6 lg:px-12">
+          <div className="max-w-[600px] mb-16">
+            <p className="font-body text-[12px] font-semibold tracking-[0.08em] uppercase mb-4" style={{ color: '#00809D' }}>
+              ONE STOP SOLUTION
+            </p>
+            <h2 className="font-display text-[28px] sm:text-[36px] lg:text-[42px] font-bold leading-tight" style={{ color: '#0B1F4D' }}>
+              Complete Certification
+              <br />
+              <GradientText>Solutions</GradientText>
+            </h2>
+            <p className="font-body text-[16px] mt-4 leading-relaxed" style={{ color: 'rgba(11,31,77,0.6)' }}>
+              We provide complete certifications for HDPE, PVC, uPVC, SWR pipe manufacturers and more.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
+            {services.map((service, i) => (
+              <div
+                key={i}
+                id={service.id}
+                className="group rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1"
+                style={{
+                  backgroundColor: '#FFFFFF',
+                  border: '1px solid rgba(0,128,157,0.06)',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.boxShadow = '0 12px 40px rgba(0,128,157,0.08)';
+                  e.currentTarget.style.borderColor = 'rgba(255,215,0,0.2)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.boxShadow = 'none';
+                  e.currentTarget.style.borderColor = 'rgba(0,128,157,0.06)';
+                }}
+              >
+                <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-4" style={{ backgroundColor: 'rgba(0,128,157,0.1)' }}>
+                  <service.icon size={20} style={{ color: '#00809D' }} />
+                </div>
+                <h3 className="font-body text-[15px] font-semibold" style={{ color: '#0B1F4D' }}>
+                  {service.title}
+                </h3>
+                <p className="font-body text-[12px] mt-1 font-medium" style={{ color: '#00809D' }}>
+                  {service.desc}
+                </p>
+                {service.items.map((item, j) => (
+                  <p key={j} className="font-body text-[13px] mt-2 leading-relaxed" style={{ color: 'rgba(11,31,77,0.55)' }}>
+                    {item}
+                  </p>
+                ))}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
-      {/* ─── SECTION 4: WHY CHOOSE US ─── */}
-      <WhyChooseUs />
+      {/* ─── CERTIFICATION PROCESS ─── */}
+      <section className="reveal-section" style={{ backgroundColor: '#0B1F4D', padding: '120px 0' }}>
+        <div className="max-w-[1280px] mx-auto px-6 lg:px-12">
+          <div className="text-center mb-16">
+            <p className="font-body text-[12px] font-semibold tracking-[0.08em] uppercase mb-4" style={{ color: '#FFD700' }}>
+              OUR PROCESS
+            </p>
+            <h2 className="font-display text-[28px] sm:text-[36px] lg:text-[42px] font-bold leading-tight" style={{ color: '#FCF8DD' }}>
+              How We Get You
+              <br />
+              <span style={{ color: '#FFD700' }}>Certified</span>
+            </h2>
+            <p className="font-body text-[16px] mt-4 max-w-[600px] mx-auto" style={{ color: 'rgba(252,248,221,0.6)' }}>
+              Most competitors don't explain the process. We believe in complete transparency.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 reveal-stagger">
+            {processSteps.map((step, i) => (
+              <div
+                key={i}
+                className="relative rounded-2xl p-8"
+                style={{
+                  backgroundColor: 'rgba(252,248,221,0.03)',
+                  border: '1px solid rgba(255,215,0,0.06)',
+                }}
+              >
+                <span className="font-display text-[48px] font-extrabold leading-none" style={{ color: 'rgba(255,215,0,0.1)' }}>
+                  {step.step}
+                </span>
+                <h3 className="font-body text-[18px] font-semibold mt-4" style={{ color: '#FCF8DD' }}>
+                  {step.title}
+                </h3>
+                <p className="font-body text-[14px] mt-2 leading-relaxed" style={{ color: 'rgba(252,248,221,0.5)' }}>
+                  {step.desc}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
-      {/* ─── SECTION 5: INDUSTRIES PREVIEW ─── */}
-      <IndustriesPreview />
+      {/* ─── INDUSTRIES WE SERVE ─── */}
+      <section className="reveal-section" style={{ backgroundColor: '#FCF8DD', padding: '120px 0' }}>
+        <div className="max-w-[1280px] mx-auto px-6 lg:px-12">
+          <div className="mb-16">
+            <p className="font-body text-[12px] font-semibold tracking-[0.08em] uppercase mb-4" style={{ color: '#00809D' }}>
+              INDUSTRIES WE SERVE
+            </p>
+            <h2 className="font-display text-[28px] sm:text-[36px] lg:text-[42px] font-bold leading-tight" style={{ color: '#0B1F4D' }}>
+              Serving Every
+              <br />
+              <GradientText>Pipe Manufacturing Segment</GradientText>
+            </h2>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {industries.map((ind, i) => (
+              <div
+                key={i}
+                className="relative rounded-2xl overflow-hidden min-h-[280px] flex flex-col justify-end p-6 transition-all duration-300 hover:-translate-y-1"
+                style={{
+                  backgroundImage: `linear-gradient(180deg, rgba(11,31,77,0.05) 0%, rgba(0,128,157,0.9) 100%)`,
+                  backgroundColor: '#00809D',
+                }}
+              >
+                <div className="absolute inset-0 opacity-10" style={{
+                  backgroundImage: `url(${ind.image})`,
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                }} />
+                <div className="relative z-[1]">
+                  <Factory size={28} style={{ color: '#FFD700', marginBottom: '12px' }} />
+                  <h3 className="font-body text-[18px] font-semibold" style={{ color: '#FCF8DD' }}>
+                    {ind.name}
+                  </h3>
+                  <p className="font-body text-[13px] mt-1" style={{ color: 'rgba(252,248,221,0.7)' }}>
+                    {ind.desc}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
-      {/* ─── SECTION 6: TESTIMONIALS ─── */}
-      <Testimonials />
+      {/* ─── ALL CERTIFICATIONS CTA STRIP ─── */}
+      <section className="reveal-section" style={{ background: 'linear-gradient(135deg, #FFD700 0%, #D3AF37 100%)', padding: '64px 0' }}>
+        <div className="max-w-[1280px] mx-auto px-6 lg:px-12 text-center">
+          <h2 className="font-display text-[28px] sm:text-[36px] lg:text-[42px] font-bold leading-tight" style={{ color: '#0B1F4D' }}>
+            All Certifications Solutions At One Place
+          </h2>
+          <div className="flex flex-wrap items-center justify-center gap-6 mt-6">
+            <span className="font-body text-[15px] font-semibold px-4 py-1.5 rounded-full" style={{ backgroundColor: 'rgba(11,31,77,0.1)', color: '#0B1F4D' }}>
+              Save Time
+            </span>
+            <span className="font-body text-[15px] font-semibold px-4 py-1.5 rounded-full" style={{ backgroundColor: 'rgba(11,31,77,0.1)', color: '#0B1F4D' }}>
+              Ensure Compliance
+            </span>
+            <span className="font-body text-[15px] font-semibold px-4 py-1.5 rounded-full" style={{ backgroundColor: 'rgba(11,31,77,0.1)', color: '#0B1F4D' }}>
+              Grow Your Business
+            </span>
+          </div>
+        </div>
+      </section>
 
-      {/* ─── SECTION 7: TRUST & CERTIFICATIONS ─── */}
-      <TrustCertifications />
+      {/* ─── WHY CHOOSE PRATHAM ─── */}
+      <section className="reveal-section" style={{ backgroundColor: '#0B1F4D', padding: '120px 0' }}>
+        <div className="max-w-[1280px] mx-auto px-6 lg:px-12">
+          <div className="text-center mb-16">
+            <p className="font-body text-[12px] font-semibold tracking-[0.08em] uppercase mb-4" style={{ color: '#FFD700' }}>
+              WHY PRATHAM
+            </p>
+            <h2 className="font-display text-[28px] sm:text-[36px] lg:text-[42px] font-bold leading-tight" style={{ color: '#FCF8DD' }}>
+              Why Pipe Manufacturers
+              <br />
+              <span style={{ color: '#FFD700' }}>Trust Us</span>
+            </h2>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 reveal-stagger">
+            {whyChoose.map((item, i) => (
+              <div
+                key={i}
+                className="rounded-2xl p-8 transition-all duration-300 hover:-translate-y-1"
+                style={{
+                  backgroundColor: 'rgba(252,248,221,0.03)',
+                  border: '1px solid rgba(255,215,0,0.06)',
+                }}
+              >
+                <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-5" style={{ backgroundColor: 'rgba(255,215,0,0.1)' }}>
+                  <item.icon size={24} style={{ color: '#FFD700' }} />
+                </div>
+                <h3 className="font-body text-[18px] font-semibold" style={{ color: '#FCF8DD' }}>
+                  {item.title}
+                </h3>
+                <p className="font-body text-[14px] mt-3 leading-relaxed" style={{ color: 'rgba(252,248,221,0.5)' }}>
+                  {item.desc}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
-      {/* ─── SECTION 8: FINAL CTA ─── */}
-      <FinalCTA />
+      {/* ─── FREE RESOURCE / CHECKLIST ─── */}
+      <section className="reveal-section" style={{ backgroundColor: '#00809D', padding: '100px 0' }}>
+        <div className="max-w-[800px] mx-auto px-6 lg:px-12 text-center">
+          <div className="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-6" style={{ backgroundColor: 'rgba(255,215,0,0.15)' }}>
+            <Download size={32} style={{ color: '#FFD700' }} />
+          </div>
+          <h2 className="font-display text-[28px] sm:text-[36px] lg:text-[42px] font-bold leading-tight" style={{ color: '#FCF8DD' }}>
+            Download Free
+            <br />
+            <span style={{ color: '#FFD700' }}>BIS Certification Checklist</span>
+          </h2>
+          <p className="font-body text-[16px] mt-4 max-w-[500px] mx-auto" style={{ color: 'rgba(252,248,221,0.7)' }}>
+            Get our comprehensive checklist covering all documents, tests, and steps required for BIS certification.
+          </p>
+
+          {!checklistSubmitted ? (
+            <form onSubmit={handleChecklistDownload} className="max-w-[480px] mx-auto mt-10 space-y-4">
+              <input
+                type="text"
+                placeholder="Your Name *"
+                required
+                value={checklistForm.name}
+                onChange={(e) => setChecklistForm(p => ({ ...p, name: e.target.value }))}
+                className="w-full font-body text-[15px] px-5 py-3.5 rounded-xl border-0 outline-none"
+                style={{ backgroundColor: 'rgba(252,248,221,0.12)', color: '#FCF8DD' }}
+                onFocus={(e) => { e.currentTarget.style.backgroundColor = 'rgba(252,248,221,0.18)'; }}
+                onBlur={(e) => { e.currentTarget.style.backgroundColor = 'rgba(252,248,221,0.12)'; }}
+              />
+              <input
+                type="tel"
+                placeholder="Phone Number *"
+                required
+                value={checklistForm.phone}
+                onChange={(e) => setChecklistForm(p => ({ ...p, phone: e.target.value }))}
+                className="w-full font-body text-[15px] px-5 py-3.5 rounded-xl border-0 outline-none"
+                style={{ backgroundColor: 'rgba(252,248,221,0.12)', color: '#FCF8DD' }}
+                onFocus={(e) => { e.currentTarget.style.backgroundColor = 'rgba(252,248,221,0.18)'; }}
+                onBlur={(e) => { e.currentTarget.style.backgroundColor = 'rgba(252,248,221,0.12)'; }}
+              />
+              <input
+                type="email"
+                placeholder="Email Address"
+                value={checklistForm.email}
+                onChange={(e) => setChecklistForm(p => ({ ...p, email: e.target.value }))}
+                className="w-full font-body text-[15px] px-5 py-3.5 rounded-xl border-0 outline-none"
+                style={{ backgroundColor: 'rgba(252,248,221,0.12)', color: '#FCF8DD' }}
+                onFocus={(e) => { e.currentTarget.style.backgroundColor = 'rgba(252,248,221,0.18)'; }}
+                onBlur={(e) => { e.currentTarget.style.backgroundColor = 'rgba(252,248,221,0.12)'; }}
+              />
+              <button
+                type="submit"
+                className="w-full font-body text-[16px] font-semibold px-8 py-4 rounded-xl transition-all duration-300 hover:scale-[1.02]"
+                style={{ backgroundColor: '#FFD700', color: '#0B1F4D' }}
+                onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = '#D3AF37'; }}
+                onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = '#FFD700'; }}
+              >
+                <Download size={18} className="inline mr-2" />
+                Download Checklist
+              </button>
+            </form>
+          ) : (
+            <div className="mt-10 p-8 rounded-2xl" style={{ backgroundColor: 'rgba(252,248,221,0.08)' }}>
+              <CheckCircle size={48} style={{ color: '#FFD700', margin: '0 auto' }} />
+              <h3 className="font-body text-[20px] font-semibold mt-4" style={{ color: '#FCF8DD' }}>
+                Checklist Sent!
+              </h3>
+              <p className="font-body text-[14px] mt-2" style={{ color: 'rgba(252,248,221,0.6)' }}>
+                We've sent the BIS certification checklist to your email. Our team will also follow up for any assistance.
+              </p>
+              <a
+                href={`https://wa.me/919829050308?text=Hi%2C%20I%20just%20downloaded%20the%20BIS%20checklist.%20I%20need%20help%20with%20certification.`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 mt-6 font-body text-[14px] font-semibold px-6 py-3 rounded-xl transition-all duration-200 hover:scale-105"
+                style={{ backgroundColor: '#FFD700', color: '#0B1F4D' }}
+              >
+                <MessageCircle size={18} /> Need Help? WhatsApp Us
+              </a>
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* ─── FAQ ─── */}
+      <section className="reveal-section" style={{ backgroundColor: '#FCF8DD', padding: '100px 0' }}>
+        <div className="max-w-[800px] mx-auto px-6 lg:px-12">
+          <div className="text-center mb-12">
+            <p className="font-body text-[12px] font-semibold tracking-[0.08em] uppercase mb-4" style={{ color: '#00809D' }}>
+              FAQ
+            </p>
+            <h2 className="font-display text-[28px] sm:text-[36px] lg:text-[42px] font-bold leading-tight" style={{ color: '#0B1F4D' }}>
+              Frequently Asked Questions
+            </h2>
+          </div>
+          <div className="space-y-3">
+            {faqItems.map((faq, i) => (
+              <div
+                key={i}
+                className="rounded-xl overflow-hidden transition-all duration-200"
+                style={{
+                  backgroundColor: '#FFFFFF',
+                  border: '1px solid rgba(0,128,157,0.06)',
+                }}
+              >
+                <button
+                  onClick={() => setOpenFaq(openFaq === i ? null : i)}
+                  className="w-full flex items-center justify-between gap-4 px-6 py-5 text-left"
+                >
+                  <span className="font-body text-[15px] font-semibold leading-snug" style={{ color: '#0B1F4D' }}>
+                    {faq.q}
+                  </span>
+                  <ChevronDown
+                    size={18}
+                    style={{
+                      color: '#00809D',
+                      transform: openFaq === i ? 'rotate(180deg)' : 'rotate(0deg)',
+                      transition: 'transform 0.3s ease',
+                    }}
+                  />
+                </button>
+                <div
+                  className="overflow-hidden transition-all duration-300"
+                  style={{
+                    maxHeight: openFaq === i ? '200px' : '0',
+                    opacity: openFaq === i ? 1 : 0,
+                  }}
+                >
+                  <div className="px-6 pb-5 font-body text-[14px] leading-relaxed" style={{ color: 'rgba(11,31,77,0.6)' }}>
+                    {faq.a}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ─── TESTIMONIALS ─── */}
+      <section className="reveal-section" style={{ backgroundColor: '#FCF8DD', padding: '0 0 100px 0' }}>
+        <div className="max-w-[1000px] mx-auto px-6 lg:px-12">
+          <div className="text-center mb-12">
+            <p className="font-body text-[12px] font-semibold tracking-[0.08em] uppercase mb-4" style={{ color: '#00809D' }}>
+              TESTIMONIALS
+            </p>
+            <h2 className="font-display text-[28px] sm:text-[36px] lg:text-[42px] font-bold" style={{ color: '#0B1F4D' }}>
+              What Our Clients Say
+            </h2>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {testimonials.map((t, i) => (
+              <div
+                key={i}
+                className="rounded-2xl p-8 transition-all duration-300 hover:-translate-y-1"
+                style={{
+                  backgroundColor: '#FFFFFF',
+                  border: '1px solid rgba(0,128,157,0.06)',
+                  boxShadow: '0 4px 24px rgba(0,128,157,0.04)',
+                }}
+              >
+                <span className="font-display text-[36px] leading-none" style={{ color: 'rgba(0,128,157,0.15)' }}>
+                  &ldquo;
+                </span>
+                <p className="font-body text-[14px] italic leading-relaxed mt-2" style={{ color: 'rgba(11,31,77,0.7)' }}>
+                  {t.quote}
+                </p>
+                <div className="mt-6 pt-4" style={{ borderTop: '1px solid rgba(0,128,157,0.08)' }}>
+                  <p className="font-body text-[14px] font-semibold" style={{ color: '#00809D' }}>
+                    — {t.author}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ─── CONTACT / FINAL CTA ─── */}
+      <section className="reveal-section relative overflow-hidden" style={{
+        background: 'linear-gradient(135deg, #00809D 0%, #0B1F4D 100%)',
+        padding: '100px 0',
+      }}>
+        <div className="absolute top-10 left-10 w-[300px] h-[300px] rounded-full opacity-[0.04] pointer-events-none" style={{ border: '1px solid rgba(255,215,0,0.2)' }} />
+        <div className="absolute bottom-10 right-10 w-[300px] h-[300px] rounded-full opacity-[0.04] pointer-events-none" style={{ border: '1px solid rgba(255,215,0,0.2)' }} />
+
+        <div className="relative max-w-[800px] mx-auto px-6 text-center">
+          <div className="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-6" style={{ backgroundColor: 'rgba(255,215,0,0.12)' }}>
+            <Phone size={32} style={{ color: '#FFD700' }} />
+          </div>
+          <h2 className="font-display text-[34px] sm:text-[46px] lg:text-[56px] font-bold leading-tight" style={{ color: '#FCF8DD' }}>
+            Ready to Get
+            <br />
+            <span style={{ color: '#FFD700' }}>Certified?</span>
+          </h2>
+          <p className="font-body text-[16px] lg:text-[18px] mt-5 max-w-[600px] mx-auto" style={{ color: 'rgba(252,248,221,0.7)' }}>
+            Get in touch for a free consultation. Our certification experts will guide you through the entire process.
+          </p>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-10">
+            <a
+              href="https://wa.me/919829050308"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-body text-[15px] font-semibold px-10 py-4 rounded-xl transition-all duration-300 hover:scale-[1.03] inline-flex items-center gap-2"
+              style={{ backgroundColor: '#FFD700', color: '#0B1F4D' }}
+              onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = '#D3AF37'; }}
+              onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = '#FFD700'; }}
+            >
+              <MessageCircle size={20} /> Get Free Consultation
+            </a>
+            <a
+              href="tel:+919829050308"
+              className="font-body text-[15px] font-semibold px-10 py-4 rounded-xl transition-all duration-300 hover:scale-[1.03]"
+              style={{ border: '2px solid #FFD700', color: '#FFD700' }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = '#FFD700';
+                e.currentTarget.style.color = '#0B1F4D';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = 'transparent';
+                e.currentTarget.style.color = '#FFD700';
+              }}
+            >
+              Call +91 98290 50308
+            </a>
+          </div>
+        </div>
+      </section>
 
       <WhatsAppButton />
     </div>
-  );
-}
-
-/* ─────────────────── SECTION 2: STATS BAR ─────────────────── */
-
-function StatsBar() {
-  return (
-    <section className="reveal-section" style={{ backgroundColor: '#2B1B0E', padding: '64px 0' }}>
-      <div className="max-w-[1280px] mx-auto px-6 lg:px-12">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12">
-          {[
-            { value: '25+', label: 'Years of Excellence' },
-            { value: '8', label: 'Testing Machine Types' },
-            { value: '500+', label: 'Machines Delivered' },
-            { value: 'PAN', label: 'India Service Network' },
-          ].map((stat, i) => (
-            <div key={i} className="text-center">
-              <AnimatedCounter value={stat.value} delay={i * 150} />
-              <div className="w-10 h-0.5 mx-auto mt-4 mb-3" style={{ backgroundColor: 'rgba(243,198,35,0.3)' }} />
-              <p className="font-body text-[14px] font-medium" style={{ color: 'rgba(254,243,226,0.6)' }}>
-                {stat.label}
-              </p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ─────────────────── SECTION 3: PRODUCT SHOWCASE ─────────────────── */
-
-function ProductShowcase() {
-  return (
-    <section className="reveal-section" style={{ backgroundColor: '#FEF3E2', padding: '120px 0' }}>
-      <div className="max-w-[1280px] mx-auto px-6 lg:px-12">
-        {/* Section Header */}
-        <div className="max-w-[600px] mb-16">
-          <p className="font-body text-[12px] font-semibold tracking-[0.08em] uppercase mb-4" style={{ color: '#FA812F' }}>
-            OUR PRODUCT RANGE
-          </p>
-          <h2 className="font-display text-[28px] sm:text-[36px] lg:text-[42px] font-bold leading-tight" style={{ color: '#2B1B0E' }}>
-            8 Precision Testing
-            <br />
-            <GradientText>Machines</GradientText>
-          </h2>
-          <p className="font-body text-[16px] lg:text-[18px] mt-4 leading-relaxed" style={{ color: 'rgba(43,27,14,0.7)' }}>
-            From hydrostatic pressure to melt flow index — complete testing solutions for every pipe type.
-          </p>
-        </div>
-
-        {/* Product Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-          {products.map((product) => (
-            <ProductCard key={product.slug} product={product} />
-          ))}
-        </div>
-
-        {/* View All */}
-        <div className="text-center mt-12">
-          <Link
-            to="/products"
-            className="inline-flex items-center gap-2 font-body text-[14px] font-semibold px-8 py-3.5 rounded-full transition-all duration-300 hover:scale-[1.03]"
-            style={{ border: '2px solid #2B1B0E', color: '#2B1B0E' }}
-            onMouseEnter={(e) => {
-              (e.target as HTMLElement).style.backgroundColor = '#2B1B0E';
-              (e.target as HTMLElement).style.color = '#FEF3E2';
-            }}
-            onMouseLeave={(e) => {
-              (e.target as HTMLElement).style.backgroundColor = 'transparent';
-              (e.target as HTMLElement).style.color = '#2B1B0E';
-            }}
-          >
-            View All Products
-            <ArrowRight size={16} />
-          </Link>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function ProductCard({ product }: { product: typeof products[0] }) {
-  return (
-    <Link
-      to={`/products/${product.slug}`}
-      className="group block rounded-2xl overflow-hidden transition-all duration-400"
-      style={{
-        backgroundColor: '#FFFFFF',
-        border: '1px solid rgba(43,27,14,0.06)',
-        boxShadow: '0 4px 24px rgba(43,27,14,0.04)',
-      }}
-      onMouseEnter={(e) => {
-        const el = e.currentTarget;
-        el.style.transform = 'translateY(-4px)';
-        el.style.boxShadow = '0 12px 40px rgba(43,27,14,0.08)';
-        el.style.borderColor = 'rgba(243,198,35,0.15)';
-      }}
-      onMouseLeave={(e) => {
-        const el = e.currentTarget;
-        el.style.transform = 'translateY(0)';
-        el.style.boxShadow = '0 4px 24px rgba(43,27,14,0.04)';
-        el.style.borderColor = 'rgba(43,27,14,0.06)';
-      }}
-    >
-      <div className="relative overflow-hidden" style={{ aspectRatio: '4/3' }}>
-        <img
-          src={product.image}
-          alt={product.name}
-          className="w-full h-full object-cover transition-transform duration-400 group-hover:scale-105"
-          loading="lazy"
-        />
-        <div
-          className="absolute inset-0 flex items-end justify-center pb-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-          style={{ background: 'linear-gradient(to top, rgba(42,23,11,0.7), transparent)' }}
-        >
-          <span className="font-body text-[13px] font-medium flex items-center gap-1" style={{ color: '#FEF3E2' }}>
-            View Details <ArrowRight size={14} />
-          </span>
-        </div>
-      </div>
-      <div className="p-6">
-        <h3 className="font-body text-[16px] font-semibold leading-snug" style={{ color: '#2B1B0E' }}>
-          {product.name}
-        </h3>
-        <p className="font-body text-[13px] mt-1" style={{ color: 'rgba(43,27,14,0.5)' }}>
-          {product.spec}
-        </p>
-        <span className="inline-flex items-center gap-1 mt-3 font-body text-[13px] font-semibold" style={{ color: '#FA812F' }}>
-          Learn More <ArrowRight size={14} />
-        </span>
-      </div>
-    </Link>
-  );
-}
-
-/* ─────────────────── SECTION 4: WHY CHOOSE US ─────────────────── */
-
-function WhyChooseUs() {
-  return (
-    <section className="reveal-section" style={{ backgroundColor: '#2B1B0E', padding: '120px 0' }}>
-      <div className="max-w-[1280px] mx-auto px-6 lg:px-12">
-        {/* Section Header */}
-        <div className="mb-16">
-          <p className="font-body text-[12px] font-semibold tracking-[0.08em] uppercase mb-4" style={{ color: '#F3C623' }}>
-            WHY SUNRISE
-          </p>
-          <h2 className="font-display text-[28px] sm:text-[36px] lg:text-[42px] font-bold leading-tight" style={{ color: '#FEF3E2' }}>
-            Built on Trust,
-            <br />
-            Engineered for Precision
-          </h2>
-        </div>
-
-        {/* Feature Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 reveal-stagger">
-          {features.map((feature, i) => (
-            <div
-              key={i}
-              className="rounded-2xl p-8 transition-all duration-300 hover:-translate-y-1"
-              style={{
-                backgroundColor: 'rgba(254,243,226,0.03)',
-                border: '1px solid rgba(243,198,35,0.06)',
-              }}
-            >
-              <div
-                className="w-12 h-12 rounded-full flex items-center justify-center mb-5"
-                style={{ backgroundColor: 'rgba(243,198,35,0.1)' }}
-              >
-                <feature.icon size={24} style={{ color: '#F3C623' }} />
-              </div>
-              <h3 className="font-body text-[18px] font-semibold" style={{ color: '#FEF3E2' }}>
-                {feature.title}
-              </h3>
-              <p className="font-body text-[14px] mt-3 leading-relaxed" style={{ color: 'rgba(254,243,226,0.6)' }}>
-                {feature.description}
-              </p>
-            </div>
-          ))}
-        </div>
-
-        {/* Trust Badge Strip */}
-        <div className="reveal-section flex flex-wrap items-center justify-center gap-6 sm:gap-12 mt-16">
-          {[
-            { icon: CheckCircle, label: 'ISO 9001:2015' },
-            { icon: Award, label: 'CE Certified' },
-            { icon: MapPin, label: 'Made in India' },
-            { icon: Users, label: '100+ Clients' },
-          ].map((badge, i) => (
-            <div key={i} className="flex items-center gap-3">
-              {i > 0 && (
-                <div className="hidden sm:block w-px h-6 mr-3" style={{ backgroundColor: 'rgba(243,198,35,0.15)' }} />
-              )}
-              <badge.icon size={16} style={{ color: '#F3C623' }} />
-              <span className="font-body text-[13px] font-medium" style={{ color: 'rgba(254,243,226,0.5)' }}>
-                {badge.label}
-              </span>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ─────────────────── SECTION 5: INDUSTRIES PREVIEW ─────────────────── */
-
-function IndustriesPreview() {
-  return (
-    <section className="reveal-section" style={{ backgroundColor: '#FEF3E2', padding: '120px 0' }}>
-      <div className="max-w-[1280px] mx-auto px-6 lg:px-12">
-        {/* Section Header */}
-        <div className="mb-16">
-          <p className="font-body text-[12px] font-semibold tracking-[0.08em] uppercase mb-4" style={{ color: '#FA812F' }}>
-            INDUSTRIES WE SERVE
-          </p>
-          <h2 className="font-display text-[28px] sm:text-[36px] lg:text-[42px] font-bold leading-tight" style={{ color: '#2B1B0E' }}>
-            Trusted Across
-            <br />
-            <GradientText>Every Pipe Industry</GradientText>
-          </h2>
-        </div>
-
-        {/* Industry Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {industries.map((ind, i) => (
-            <div
-              key={i}
-              className="relative rounded-2xl overflow-hidden min-h-[320px] flex flex-col justify-end p-6 transition-all duration-300 hover:-translate-y-1"
-              style={{
-                backgroundImage: `linear-gradient(180deg, rgba(43,27,14,0.1) 0%, rgba(42,23,11,0.85) 100%), url(/industry-${['pvc', 'hdpe', 'irrigation', 'lab'][i]}.webp)`,
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-              }}
-            >
-              <h3 className="font-body text-[18px] font-semibold" style={{ color: '#FEF3E2' }}>
-                {ind.name}
-              </h3>
-              <p className="font-body text-[13px] mt-1" style={{ color: 'rgba(254,243,226,0.6)' }}>
-                {ind.line}
-              </p>
-              <div
-                className="absolute bottom-0 left-0 right-0 h-[3px]"
-                style={{ background: ind.accent }}
-              />
-            </div>
-          ))}
-        </div>
-
-        {/* View All */}
-        <div className="text-center mt-10">
-          <Link
-            to="/industries"
-            className="inline-flex items-center gap-2 font-body text-[14px] font-semibold px-8 py-3.5 rounded-full transition-all duration-300 hover:scale-[1.03]"
-            style={{ border: '2px solid #2B1B0E', color: '#2B1B0E' }}
-            onMouseEnter={(e) => {
-              (e.target as HTMLElement).style.backgroundColor = '#2B1B0E';
-              (e.target as HTMLElement).style.color = '#FEF3E2';
-            }}
-            onMouseLeave={(e) => {
-              (e.target as HTMLElement).style.backgroundColor = 'transparent';
-              (e.target as HTMLElement).style.color = '#2B1B0E';
-            }}
-          >
-            Explore All Industries
-            <ArrowRight size={16} />
-          </Link>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ─────────────────── SECTION 6: TESTIMONIALS ─────────────────── */
-
-function Testimonials() {
-  const [current, setCurrent] = useState(0);
-  const [isPaused, setIsPaused] = useState(false);
-
-  useEffect(() => {
-    if (isPaused) return;
-    const timer = setInterval(() => {
-      setCurrent((prev) => (prev + 1) % testimonials.length);
-    }, 6000);
-    return () => clearInterval(timer);
-  }, [isPaused]);
-
-  const goTo = (index: number) => setCurrent(index);
-  const prev = () => setCurrent((c) => (c - 1 + testimonials.length) % testimonials.length);
-  const next = () => setCurrent((c) => (c + 1) % testimonials.length);
-
-  const t = testimonials[current];
-
-  return (
-    <section className="reveal-section" style={{ backgroundColor: '#FEF3E2', padding: '120px 0' }}>
-      <div className="max-w-[1000px] mx-auto px-6 lg:px-12">
-        {/* Section Header */}
-        <div className="text-center mb-16">
-          <p className="font-body text-[12px] font-semibold tracking-[0.08em] uppercase mb-4" style={{ color: '#FA812F' }}>
-            CLIENT TESTIMONIALS
-          </p>
-          <h2 className="font-display text-[28px] sm:text-[36px] lg:text-[42px] font-bold" style={{ color: '#2B1B0E' }}>
-            What Our Clients Say
-          </h2>
-        </div>
-
-        {/* Testimonial Card */}
-        <div
-          className="relative rounded-2xl p-8 sm:p-12 text-center transition-all duration-300"
-          style={{
-            backgroundColor: '#FFFFFF',
-            boxShadow: '0 4px 24px rgba(43,27,14,0.04)',
-          }}
-          onMouseEnter={() => setIsPaused(true)}
-          onMouseLeave={() => setIsPaused(false)}
-        >
-          {/* Quote Icon */}
-          <span className="absolute top-6 left-6 font-display text-[48px] leading-none" style={{ color: 'rgba(243,198,35,0.2)' }}>
-            &ldquo;
-          </span>
-
-          <p className="font-body text-[16px] lg:text-[18px] italic leading-relaxed max-w-[700px] mx-auto" style={{ color: 'rgba(43,27,14,0.8)' }}>
-            {t.quote}
-          </p>
-
-          <div className="w-10 h-px mx-auto my-8" style={{ backgroundColor: 'rgba(243,198,35,0.3)' }} />
-
-          <p className="font-body text-[15px] font-semibold" style={{ color: '#2B1B0E' }}>
-            {t.name}
-          </p>
-          <p className="font-body text-[13px] mt-1" style={{ color: 'rgba(43,27,14,0.5)' }}>
-            {t.title}
-          </p>
-        </div>
-
-        {/* Navigation */}
-        <div className="flex items-center justify-center gap-6 mt-8">
-          <button
-            onClick={prev}
-            className="w-12 h-12 rounded-full flex items-center justify-center transition-all duration-200 hover:scale-105"
-            style={{ border: '1px solid rgba(43,27,14,0.1)' }}
-            aria-label="Previous testimonial"
-          >
-            <ChevronLeft size={20} style={{ color: 'rgba(43,27,14,0.5)' }} />
-          </button>
-
-          <div className="flex items-center gap-2">
-            {testimonials.map((_, i) => (
-              <button
-                key={i}
-                onClick={() => goTo(i)}
-                className="w-2 h-2 rounded-full transition-all duration-200"
-                style={{
-                  backgroundColor: i === current ? '#F3C623' : 'rgba(43,27,14,0.15)',
-                }}
-                aria-label={`Go to testimonial ${i + 1}`}
-              />
-            ))}
-          </div>
-
-          <button
-            onClick={next}
-            className="w-12 h-12 rounded-full flex items-center justify-center transition-all duration-200 hover:scale-105"
-            style={{ border: '1px solid rgba(43,27,14,0.1)' }}
-            aria-label="Next testimonial"
-          >
-            <ChevronRight size={20} style={{ color: 'rgba(43,27,14,0.5)' }} />
-          </button>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ─────────────────── SECTION 7: TRUST & CERTIFICATIONS ─────────────────── */
-
-function TrustCertifications() {
-  return (
-    <section className="reveal-section" style={{ backgroundColor: '#2B1B0E', padding: '80px 0' }}>
-      <div className="max-w-[1280px] mx-auto px-6 lg:px-12">
-        {/* Certifications Row */}
-        <div className="reveal-stagger flex flex-wrap items-center justify-center gap-12 lg:gap-16">
-          {certifications.map((cert, i) => (
-            <div key={i} className="flex flex-col items-center text-center gap-3">
-              <cert.icon size={32} style={{ color: '#F3C623' }} />
-              <div>
-                <p className="font-body text-[15px] font-semibold" style={{ color: '#FEF3E2' }}>
-                  {cert.label}
-                </p>
-                <p className="font-body text-[12px] mt-0.5" style={{ color: 'rgba(254,243,226,0.5)' }}>
-                  {cert.sublabel}
-                </p>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* Divider */}
-        <div className="my-12" style={{ height: '1px', backgroundColor: 'rgba(243,198,35,0.1)' }} />
-
-        {/* Quality Promise */}
-        <p className="text-center font-body text-[16px] lg:text-[18px] italic max-w-[700px] mx-auto leading-relaxed" style={{ color: 'rgba(254,243,226,0.7)' }}>
-          Every machine undergoes rigorous calibration and testing before dispatch. We provide complete documentation, operation training, and comprehensive warranty.
-        </p>
-      </div>
-    </section>
-  );
-}
-
-/* ─────────────────── SECTION 8: FINAL CTA ─────────────────── */
-
-function FinalCTA() {
-  return (
-    <section className="reveal-section relative overflow-hidden" style={{ background: 'linear-gradient(135deg, #FA812F 0%, #FFB22C 50%, #F3C623 100%)', padding: '120px 0' }}>
-      {/* Decorative circles */}
-      <div className="absolute top-10 left-10 w-[300px] h-[300px] rounded-full opacity-[0.06] pointer-events-none" style={{ border: '1px solid rgba(43,27,14,0.2)' }} />
-      <div className="absolute bottom-10 right-10 w-[300px] h-[300px] rounded-full opacity-[0.06] pointer-events-none" style={{ border: '1px solid rgba(43,27,14,0.2)' }} />
-
-      <div className="relative max-w-[700px] mx-auto px-6 text-center">
-        <h2 className="font-display text-[34px] sm:text-[46px] lg:text-[56px] font-bold leading-tight" style={{ color: '#2A170B' }}>
-          Ready to Ensure
-          <br />
-          Your Pipe Quality?
-        </h2>
-
-        <p className="font-body text-[16px] lg:text-[18px] mt-5" style={{ color: 'rgba(42,23,11,0.8)' }}>
-          Get in touch for a customized testing solution. Our engineers will analyze your requirements and recommend the perfect machine.
-        </p>
-
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-10">
-          <Link
-            to="/contact"
-            className="font-body text-[15px] font-semibold px-10 py-4 rounded-xl transition-all duration-300 hover:scale-[1.03]"
-            style={{ backgroundColor: '#2A170B', color: '#F3C623' }}
-            onMouseEnter={(e) => {
-              (e.target as HTMLElement).style.backgroundColor = '#2B1B0E';
-            }}
-            onMouseLeave={(e) => {
-              (e.target as HTMLElement).style.backgroundColor = '#2A170B';
-            }}
-          >
-            Request a Quote
-          </Link>
-          <a
-            href="tel:+919829050308"
-            className="font-body text-[15px] font-semibold px-10 py-4 rounded-xl transition-all duration-300 hover:scale-[1.03]"
-            style={{ border: '2px solid #2A170B', color: '#2A170B' }}
-            onMouseEnter={(e) => {
-              (e.target as HTMLElement).style.backgroundColor = '#2A170B';
-              (e.target as HTMLElement).style.color = '#F3C623';
-            }}
-            onMouseLeave={(e) => {
-              (e.target as HTMLElement).style.backgroundColor = 'transparent';
-              (e.target as HTMLElement).style.color = '#2A170B';
-            }}
-          >
-            Call Us Now
-          </a>
-        </div>
-
-        <div className="flex items-center justify-center gap-2 mt-5">
-          <Phone size={16} style={{ color: 'rgba(42,23,11,0.7)' }} />
-          <span className="font-mono text-[15px]" style={{ color: 'rgba(42,23,11,0.7)' }}>
-            +91 98290 50308
-          </span>
-        </div>
-      </div>
-    </section>
   );
 }
