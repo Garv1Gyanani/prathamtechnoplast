@@ -201,7 +201,7 @@ export default function Home() {
         {/* Full-width banner image */}
         <div className="hero-bg absolute inset-0 z-0">
           <img
-            src="/d39cb358-8155-45d8-9493-4fc7314fde82.png"
+            src="/banner.webp"
             alt="Pratham Technoplast"
             className="w-full h-full object-cover object-center"
           />
