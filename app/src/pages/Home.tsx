@@ -1,114 +1,23 @@
 import { useEffect, useRef, useState } from 'react';
+import { Link } from 'react-router';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import {
   ChevronDown, CheckCircle, Phone, MessageCircle, FileCheck, Shield, Award,
-  ClipboardCheck, BookOpen, Settings, Users, Clock, Download, Factory,
-  FileText, Stethoscope, RefreshCw,
+  Download, Users, Clock,
 } from 'lucide-react';
 import GradientText from '../components/GradientText';
 import WhatsAppButton from '../components/WhatsAppButton';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const services = [
-  {
-    title: 'BIS License (ISI Mark)',
-    desc: 'New License / Renewal',
-    items: ['Complete support for ISI certification under BIS standards.'],
-    icon: Award,
-    id: 'bis',
-  },
-  {
-    title: 'ISO Certification',
-    desc: 'ISO 9001, 14001, 45001 & more',
-    items: ['Improve quality, build trust and grow your business.'],
-    icon: Shield,
-    id: 'iso',
-  },
-  {
-    title: 'ISI Mark Certification',
-    desc: 'For HDPE Pipes, Fittings & Other Products',
-    items: ['As per applicable standards.'],
-    icon: CheckCircle,
-    id: 'isi',
-  },
-  {
-    title: 'Calibration Certificate',
-    desc: 'All types of measuring instruments',
-    items: ['Calibration certificates for pressure gauges, testing instruments & lab equipment.'],
-    icon: Settings,
-    id: 'calibration',
-  },
-  {
-    title: 'Trademark Registration',
-    desc: 'Protect your brand identity',
-    items: ['Registered trademark protection for your brand.'],
-    icon: BookOpen,
-    id: 'trademark',
-  },
-  {
-    title: 'BIS Documentation & Compliance',
-    desc: 'End-to-end documentation support',
-    items: ['Complete documentation for BIS certification process.'],
-    icon: FileText,
-    id: 'documentation',
-  },
-  {
-    title: 'Factory Inspection Coordination',
-    desc: 'Smooth coordination with BIS',
-    items: ['Expert coordination with BIS authorities for factory inspection.'],
-    icon: ClipboardCheck,
-    id: 'inspection',
-  },
-  {
-    title: 'Test Report Arrangement',
-    desc: 'From BIS recognized laboratories',
-    items: ['Test report arrangement from BIS approved labs.'],
-    icon: FileCheck,
-    id: 'testreport',
-  },
-  {
-    title: 'Consultancy Support',
-    desc: 'Expert guidance at every step',
-    items: ['Expert guidance throughout the BIS certification process.'],
-    icon: Stethoscope,
-    id: 'consultancy',
-  },
-  {
-    title: 'Renewal & Post Certification Support',
-    desc: 'On-time renewal & continuous support',
-    items: ['Continuous support assurance after certification.'],
-    icon: RefreshCw,
-    id: 'renewal',
-  },
-];
-
-const processSteps = [
-  { step: '01', title: 'Initial Consultation', desc: 'We understand your requirements and assess your current compliance status.' },
-  { step: '02', title: 'Documentation Preparation', desc: 'Our experts prepare all necessary documents and applications.' },
-  { step: '03', title: 'Product Testing', desc: 'Coordination with BIS-approved labs for product sample testing.' },
-  { step: '04', title: 'Factory Inspection', desc: 'Pre-inspection preparation and coordination with authorities.' },
-  { step: '05', title: 'Certification Approval', desc: 'End-to-end follow-up until certificate is issued.' },
-  { step: '06', title: 'Renewal & Ongoing Support', desc: 'Timely renewal reminders and ongoing compliance guidance.' },
-];
-
-const industries = [
-  { name: 'HDPE Pipe Manufacturers', desc: 'Complete BIS/ISI certification for HDPE pipe production.', image: '/industry-hdpe.webp' },
-  { name: 'PVC Pipe Manufacturers', desc: 'ISI mark certification for PVC pipe manufacturers.', image: '/industry-pvc.webp' },
-  { name: 'uPVC Pipe Manufacturers', desc: 'Compliance solutions for uPVC window & pipe manufacturers.', image: '/industry-pvc.webp' },
-  { name: 'SWR Pipe Manufacturers', desc: 'SWR pipe certification and BIS license support.', image: '/industry-hdpe.webp' },
-  { name: 'Pipe Fittings Manufacturers', desc: 'ISI certification for all types of pipe fittings.', image: '/industry-irrigation.webp' },
-  { name: 'Irrigation Product Manufacturers', desc: 'BIS certification for irrigation pipe and component makers.', image: '/industry-irrigation.webp' },
-];
-
 const whyChoose = [
   { icon: Award, title: 'Experienced in BIS & Regulatory Services', desc: 'Deep expertise in BIS, ISI, ISO and regulatory compliance for pipe manufacturers.' },
-  { icon: BookOpen, title: 'In-depth Knowledge of Standards', desc: 'Thorough understanding of all applicable BIS and ISO standards for your products.' },
-  { icon: CheckCircle, title: 'Hassle-free Process', desc: 'We handle all the complexity so you can focus on your manufacturing.' },
-  { icon: FileCheck, title: 'Transparent & Reliable Services', desc: 'Complete transparency at every stage with regular updates and progress reports.' },
+  { icon: CheckCircle, title: 'In-depth Knowledge of Standards', desc: 'Thorough understanding of all applicable BIS and ISO standards for your products.' },
+  { icon: FileCheck, title: 'Hassle-free Process', desc: 'We handle all the complexity so you can focus on your manufacturing.' },
+  { icon: Shield, title: 'Transparent & Reliable Services', desc: 'Complete transparency at every stage with regular updates and progress reports.' },
   { icon: Users, title: 'Customer Satisfaction First', desc: 'Your satisfaction is our priority. We work until you get certified.' },
-  { icon: Shield, title: 'Post Certification Support', desc: 'Continued support even after certification to ensure ongoing compliance.' },
+  { icon: Clock, title: 'Post Certification Support', desc: 'Continued support even after certification to ensure ongoing compliance.' },
 ];
 
 const faqItems = [
@@ -296,142 +205,30 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ─── SERVICES ─── */}
-      <section className="reveal-section" style={{ backgroundColor: '#FCF8DD', padding: '120px 0' }}>
-        <div className="max-w-[1280px] mx-auto px-6 lg:px-12">
-          <div className="max-w-[600px] mb-16">
-            <p className="font-body text-[12px] font-semibold tracking-[0.08em] uppercase mb-4" style={{ color: '#00809D' }}>
-              ONE STOP SOLUTION
-            </p>
-            <h2 className="font-display text-[28px] sm:text-[36px] lg:text-[42px] font-bold leading-tight" style={{ color: '#0B1F4D' }}>
-              Complete Certification
-              <br />
-              <GradientText>Solutions</GradientText>
-            </h2>
-            <p className="font-body text-[16px] mt-4 leading-relaxed" style={{ color: 'rgba(11,31,77,0.6)' }}>
-              We provide complete certifications for HDPE, PVC, uPVC, SWR pipe manufacturers and more.
-            </p>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
-            {services.map((service, i) => (
-              <div
-                key={i}
-                id={service.id}
-                className="group rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1"
-                style={{
-                  backgroundColor: '#FFFFFF',
-                  border: '1px solid rgba(0,128,157,0.06)',
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.boxShadow = '0 12px 40px rgba(0,128,157,0.08)';
-                  e.currentTarget.style.borderColor = 'rgba(255,215,0,0.2)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.boxShadow = 'none';
-                  e.currentTarget.style.borderColor = 'rgba(0,128,157,0.06)';
-                }}
-              >
-                <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-4" style={{ backgroundColor: 'rgba(0,128,157,0.1)' }}>
-                  <service.icon size={20} style={{ color: '#00809D' }} />
-                </div>
-                <h3 className="font-body text-[15px] font-semibold" style={{ color: '#0B1F4D' }}>
-                  {service.title}
-                </h3>
-                <p className="font-body text-[12px] mt-1 font-medium" style={{ color: '#00809D' }}>
-                  {service.desc}
-                </p>
-                {service.items.map((item, j) => (
-                  <p key={j} className="font-body text-[13px] mt-2 leading-relaxed" style={{ color: 'rgba(11,31,77,0.55)' }}>
-                    {item}
-                  </p>
-                ))}
-              </div>
+      {/* ─── SERVICES PREVIEW (Link to full page) ─── */}
+      <section className="reveal-section" style={{ backgroundColor: '#FCF8DD', padding: '100px 0' }}>
+        <div className="max-w-[1280px] mx-auto px-6 lg:px-12 text-center">
+          <p className="font-body text-[12px] font-semibold tracking-[0.08em] uppercase mb-4" style={{ color: '#00809D' }}>ONE STOP SOLUTION</p>
+          <h2 className="font-display text-[28px] sm:text-[36px] lg:text-[42px] font-bold leading-tight" style={{ color: '#0B1F4D' }}>
+            Complete Certification <GradientText>Solutions</GradientText>
+          </h2>
+          <p className="font-body text-[16px] mt-4 max-w-[600px] mx-auto" style={{ color: 'rgba(11,31,77,0.6)' }}>
+            From BIS license to trademark registration — everything you need under one roof.
+          </p>
+          <div className="flex flex-wrap items-center justify-center gap-6 mt-10">
+            {['BIS License', 'ISO Certification', 'ISI Mark', 'Calibration', 'Trademark', 'Documentation'].map((s) => (
+              <span key={s} className="font-body text-[14px] font-medium px-5 py-2.5 rounded-full" style={{ backgroundColor: '#FFFFFF', border: '1px solid rgba(0,128,157,0.08)', color: '#0B1F4D' }}>
+                {s}
+              </span>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* ─── CERTIFICATION PROCESS ─── */}
-      <section className="reveal-section" style={{ backgroundColor: '#0B1F4D', padding: '120px 0' }}>
-        <div className="max-w-[1280px] mx-auto px-6 lg:px-12">
-          <div className="text-center mb-16">
-            <p className="font-body text-[12px] font-semibold tracking-[0.08em] uppercase mb-4" style={{ color: '#FFD700' }}>
-              OUR PROCESS
-            </p>
-            <h2 className="font-display text-[28px] sm:text-[36px] lg:text-[42px] font-bold leading-tight" style={{ color: '#FCF8DD' }}>
-              How We Get You
-              <br />
-              <span style={{ color: '#FFD700' }}>Certified</span>
-            </h2>
-            <p className="font-body text-[16px] mt-4 max-w-[600px] mx-auto" style={{ color: 'rgba(252,248,221,0.6)' }}>
-              Most competitors don't explain the process. We believe in complete transparency.
-            </p>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 reveal-stagger">
-            {processSteps.map((step, i) => (
-              <div
-                key={i}
-                className="relative rounded-2xl p-8"
-                style={{
-                  backgroundColor: 'rgba(252,248,221,0.03)',
-                  border: '1px solid rgba(255,215,0,0.06)',
-                }}
-              >
-                <span className="font-display text-[48px] font-extrabold leading-none" style={{ color: 'rgba(255,215,0,0.1)' }}>
-                  {step.step}
-                </span>
-                <h3 className="font-body text-[18px] font-semibold mt-4" style={{ color: '#FCF8DD' }}>
-                  {step.title}
-                </h3>
-                <p className="font-body text-[14px] mt-2 leading-relaxed" style={{ color: 'rgba(252,248,221,0.5)' }}>
-                  {step.desc}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ─── INDUSTRIES WE SERVE ─── */}
-      <section className="reveal-section" style={{ backgroundColor: '#FCF8DD', padding: '120px 0' }}>
-        <div className="max-w-[1280px] mx-auto px-6 lg:px-12">
-          <div className="mb-16">
-            <p className="font-body text-[12px] font-semibold tracking-[0.08em] uppercase mb-4" style={{ color: '#00809D' }}>
-              INDUSTRIES WE SERVE
-            </p>
-            <h2 className="font-display text-[28px] sm:text-[36px] lg:text-[42px] font-bold leading-tight" style={{ color: '#0B1F4D' }}>
-              Serving Every
-              <br />
-              <GradientText>Pipe Manufacturing Segment</GradientText>
-            </h2>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {industries.map((ind, i) => (
-              <div
-                key={i}
-                className="relative rounded-2xl overflow-hidden min-h-[280px] flex flex-col justify-end p-6 transition-all duration-300 hover:-translate-y-1"
-                style={{
-                  backgroundImage: `linear-gradient(180deg, rgba(11,31,77,0.05) 0%, rgba(0,128,157,0.9) 100%)`,
-                  backgroundColor: '#00809D',
-                }}
-              >
-                <div className="absolute inset-0 opacity-10" style={{
-                  backgroundImage: `url(${ind.image})`,
-                  backgroundSize: 'cover',
-                  backgroundPosition: 'center',
-                }} />
-                <div className="relative z-[1]">
-                  <Factory size={28} style={{ color: '#FFD700', marginBottom: '12px' }} />
-                  <h3 className="font-body text-[18px] font-semibold" style={{ color: '#FCF8DD' }}>
-                    {ind.name}
-                  </h3>
-                  <p className="font-body text-[13px] mt-1" style={{ color: 'rgba(252,248,221,0.7)' }}>
-                    {ind.desc}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
+          <Link
+            to="/services"
+            className="inline-flex items-center gap-2 mt-10 font-body text-[15px] font-semibold px-8 py-3.5 rounded-xl transition-all duration-300 hover:scale-[1.03]"
+            style={{ backgroundColor: '#00809D', color: '#FFFFFF' }}
+          >
+            View All Services →
+          </Link>
         </div>
       </section>
 

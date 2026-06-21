@@ -106,7 +106,7 @@ export default function Navbar() {
           className="fixed inset-0 top-[80px] lg:hidden flex flex-col items-center pt-16 gap-8"
           style={{ backgroundColor: '#0B1F4D', zIndex: 99 }}
         >
-          {navLinks.map((link, i) => (
+          {navLinks.map((link) => (
             <Link
               key={link.path}
               to={link.path}
