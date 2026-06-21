@@ -1,0 +1,82 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 40 100% 94%;
+    --foreground: 24 50% 12%;
+    --card: 0 0% 100%;
+    --card-foreground: 24 50% 12%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 24 50% 12%;
+    --primary: 47 89% 55%;
+    --primary-foreground: 16 52% 11%;
+    --secondary: 40 100% 94%;
+    --secondary-foreground: 24 50% 12%;
+    --muted: 40 30% 85%;
+    --muted-foreground: 24 20% 40%;
+    --accent: 36 100% 58%;
+    --accent-foreground: 24 50% 12%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 24 30% 88%;
+    --input: 24 30% 88%;
+    --ring: 47 89% 55%;
+    --radius: 0.625rem;
+    --sidebar-background: 16 52% 11%;
+    --sidebar-foreground: 40 100% 94%;
+    --sidebar-primary: 47 89% 55%;
+    --sidebar-primary-foreground: 16 52% 11%;
+    --sidebar-accent: 16 45% 15%;
+    --sidebar-accent-foreground: 40 100% 94%;
+    --sidebar-border: 47 89% 55% / 0.08;
+    --sidebar-ring: 47 89% 55%;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    color: #2B1B0E;
+    background-color: #FEF3E2;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', serif;
+  }
+}
+
+@layer utilities {
+  .font-display {
+    font-family: 'Playfair Display', serif;
+  }
+  .font-body {
+    font-family: 'Inter', sans-serif;
+  }
+  .font-mono {
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .gradient-hero {
+    background: linear-gradient(135deg, #FA812F 0%, #FFB22C 50%, #F3C623 100%);
+  }
+  .gradient-dark {
+    background: linear-gradient(180deg, #2B1B0E 0%, #2A170B 100%);
+  }
+  .gradient-gold-text {
+    background: linear-gradient(90deg, #F3C623, #FFB22C);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .text-shadow-hero {
+    text-shadow: 0 4px 30px rgba(42,23,11,0.4);
+  }
+  .gold-line {
+    background: linear-gradient(90deg, transparent 0%, #F3C623 50%, transparent 100%);
+  }
+}

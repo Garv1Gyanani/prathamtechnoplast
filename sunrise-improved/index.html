@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sunrise Enterprises | Plastic Pipe Testing Machines — Jaipur</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap');
+
+:root{
+  --cream:#FEF3E2;
+  --gold:#F3C623;
+  --amber:#FFB22C;
+  --orange:#FA812F;
+  --ink:#2B1B0E;
+  --ink-soft:rgba(43,27,14,0.66);
+  --ink-faint:rgba(43,27,14,0.45);
+  --white:#FFFFFF;
+  --dusk:#2A170B;
+  --dusk-soft:#3B220F;
+  --border:rgba(43,27,14,0.12);
+}
+
+*{box-sizing:border-box; margin:0; padding:0;}
+html{scroll-behavior:smooth;}
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto;}
+  *{animation-duration:0.001ms !important; transition-duration:0.001ms !important;}
+}
+
+body{
+  font-family:'Inter', -apple-system, sans-serif;
+  background:var(--cream);
+  color:var(--ink);
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+}
+
+h1,h2,h3,h4{
+  font-family:'Outfit', sans-serif;
+  color:var(--ink);
+  line-height:1.15;
+  font-weight:700;
+}
+
+a{color:inherit; text-decoration:none;}
+ul{list-style:none;}
+img,svg{display:block; max-width:100%;}
+button{font:inherit; cursor:pointer; border:none; background:none;}
+
+.wrap{max-width:1200px; margin:0 auto; padding:0 28px;}
+.eyebrow{
+  font-family:'IBM Plex Mono', monospace;
+  font-size:12px;
+  letter-spacing:0.16em;
+  text-transform:uppercase;
+  color:var(--orange);
+  font-weight:600;
+  margin-bottom:10px;
+}
+.section-head{max-width:640px; margin:0 auto 56px; text-align:center;}
+.section-head h2{font-size:clamp(28px,4.2vw,40px); margin-bottom:14px;}
+.section-head p{color:var(--ink-soft); font-size:16.5px;}
+
+section{padding:100px 0;}
+@media (max-width:700px){ section{padding:68px 0;} }
+
+.reveal{opacity:0; transform:translateY(22px); transition:opacity .7s ease, transform .7s ease;}
+.reveal.in{opacity:1; transform:translateY(0);}
+
+.btn{
+  display:inline-flex; align-items:center; gap:8px;
+  font-family:'Inter', sans-serif;
+  font-weight:600;
+  font-size:14.5px;
+  padding:15px 28px;
+  border-radius:10px;
+  transition:transform .18s ease, box-shadow .18s ease, background .18s ease;
+}
+.btn-primary{background:var(--orange); color:var(--white);}
+.btn-primary:hover{transform:translateY(-2px); box-shadow:0 16px 32px -12px rgba(250,129,47,0.55);}
+.btn-secondary{background:var(--white); color:var(--ink); border:1.5px solid var(--ink); }
+.btn-secondary:hover{transform:translateY(-2px); background:var(--ink); color:var(--white);}
+.btn-light{background:rgba(255,255,255,0.22); color:var(--white); border:1.5px solid rgba(255,255,255,0.55); backdrop-filter:blur(6px);}
+.btn-light:hover{background:rgba(255,255,255,0.35);}
+
+/* ---------------- NAV ---------------- */
+header.site-nav{
+  position:sticky; top:0; z-index:100;
+  background:rgba(254,243,226,0.95);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--border);
+}
+.nav-inner{
+  display:flex; align-items:center; justify-content:space-between;
+  padding:14px 0;
+}
+.logo{display:flex; align-items:center; gap:10px;}
+.logo .mark{
+  width:40px; height:40px; border-radius:50%;
+  background:linear-gradient(135deg, var(--gold), var(--orange));
+  display:flex; align-items:center; justify-content:center;
+  flex-shrink:0;
+}
+.logo .mark svg{width:20px; height:20px;}
+.logo-text{display:flex; flex-direction:column; line-height:1.15;}
+.logo-text b{font-family:'Outfit',sans-serif; font-size:17px; font-weight:800; letter-spacing:0.01em;}
+.logo-text span{font-family:'IBM Plex Mono', monospace; font-size:9.5px; letter-spacing:0.08em; text-transform:uppercase; color:var(--orange);}
+
+.nav-links{display:flex; align-items:center; gap:32px;}
+.nav-links a{font-size:14.5px; font-weight:500; color:var(--ink-soft); transition:color .15s ease;}
+.nav-links a:hover{color:var(--orange);}
+.nav-cta{display:flex; align-items:center; gap:14px;}
+.hamburger{display:none; flex-direction:column; gap:5px; width:26px;}
+.hamburger span{height:2px; background:var(--ink); width:100%; border-radius:2px;}
+
+@media (max-width:920px){
+  .nav-links{
+    position:absolute; top:100%; left:0; right:0;
+    background:var(--cream);
+    flex-direction:column; align-items:flex-start;
+    padding:18px 28px 26px;
+    gap:16px;
+    border-bottom:1px solid var(--border);
+    display:none;
+  }
+  .nav-links.open{display:flex;}
+  .nav-cta .btn-secondary{display:none;}
+  .hamburger{display:flex;}
+}
+
+/* ---------------- HERO ---------------- */
+.hero{
+  position:relative;
+  overflow:hidden;
+  padding:90px 0 0;
+  background:linear-gradient(160deg, var(--cream) 0%, #FDEBC2 25%, var(--gold) 55%, var(--amber) 78%, var(--orange) 100%);
+  min-height:580px;
+}
+.hero-sun{
+  position:absolute;
+  width:500px; height:500px;
+  border-radius:50%;
+  background:radial-gradient(circle, rgba(255,255,255,0.9) 0%, rgba(255,178,44,0.35) 40%, rgba(255,178,44,0) 70%);
+  top:-160px; right:-100px;
+  pointer-events:none;
+}
+.hero-inner{
+  position:relative;
+  z-index:2;
+  display:grid;
+  grid-template-columns:1.1fr 0.9fr;
+  gap:50px;
+  align-items:center;
+}
+@media (max-width:880px){ .hero-inner{grid-template-columns:1fr;} }
+
+.hero-content{padding:20px 0 40px;}
+.hero-badge{
+  display:inline-flex; align-items:center; gap:8px;
+  background:rgba(255,255,255,0.6);
+  border:1px solid rgba(43,27,14,0.18);
+  padding:7px 16px;
+  border-radius:30px;
+  font-size:12.5px; font-weight:600;
+  margin-bottom:24px;
+  backdrop-filter:blur(4px);
+}
+.hero-badge .dot{width:7px; height:7px; border-radius:50%; background:var(--orange); animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;} 50%{opacity:.5;} }
+.hero h1{
+  font-size:clamp(36px,5.8vw,62px);
+  max-width:660px;
+  margin-bottom:20px;
+}
+.hero p.lead{
+  font-size:18.5px;
+  color:rgba(43,27,14,0.78);
+  max-width:520px;
+  margin-bottom:36px;
+}
+.hero .btn-row{display:flex; gap:16px; flex-wrap:wrap;}
+
+.hero-visual{
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.hero-pipes{
+  width:100%;
+  max-width:520px;
+  border-radius:18px;
+  box-shadow:0 30px 60px -20px rgba(43,27,14,0.35);
+  transform:rotate(-2deg);
+  transition:transform .4s ease;
+}
+.hero-pipes:hover{transform:rotate(0deg) scale(1.02);}
+
+@media (max-width:880px){
+  .hero-visual{display:none;}
+}
+
+.horizon{
+  position:relative;
+  height:90px;
+  background:var(--orange);
+}
+.horizon svg{position:absolute; bottom:0; width:100%; height:100%;}
+
+.trust-strip{
+  background:var(--white);
+  border-bottom:1px solid var(--border);
+}
+.trust-inner{
+  display:flex; flex-wrap:wrap; justify-content:space-between; gap:18px;
+  padding:24px 0;
+}
+.trust-item{display:flex; align-items:center; gap:10px; font-size:13.5px; font-weight:600; color:var(--ink-soft);}
+.trust-item .ico{color:var(--orange); display:flex;}
+
+/* ---------------- ABOUT ---------------- */
+.about-grid{
+  display:grid;
+  grid-template-columns:1.05fr 0.95fr;
+  gap:60px;
+  align-items:center;
+}
+@media (max-width:880px){ .about-grid{grid-template-columns:1fr;} }
+.about-grid h2{font-size:clamp(26px,4vw,36px); margin-bottom:18px;}
+.about-grid p.body{color:var(--ink-soft); font-size:16px; margin-bottom:32px; max-width:520px; line-height:1.75;}
+.highlight-list{display:grid; grid-template-columns:1fr 1fr; gap:16px 20px;}
+.highlight-item{display:flex; align-items:center; gap:10px; font-size:14.5px; font-weight:600;}
+.highlight-item .chk{
+  width:24px; height:24px; border-radius:50%;
+  background:linear-gradient(135deg, var(--gold), var(--amber));
+  color:var(--ink);
+  display:flex; align-items:center; justify-content:center;
+  font-size:12px; flex-shrink:0;
+}
+
+.about-visual{
+  position:relative;
+}
+.about-img{
+  width:100%;
+  border-radius:18px;
+  box-shadow:0 28px 60px -20px rgba(43,27,14,0.3);
+}
+.about-visual::before{
+  content:'';
+  position:absolute;
+  top:-12px; right:-12px;
+  width:100%; height:100%;
+  border:2px solid var(--gold);
+  border-radius:18px;
+  z-index:-1;
+}
+
+.snap-card{
+  background:var(--white);
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:30px;
+  box-shadow:0 24px 50px -30px rgba(43,27,14,0.35);
+}
+.snap-card .top{
+  display:flex; align-items:center; gap:14px;
+  padding-bottom:20px; margin-bottom:20px;
+  border-bottom:1px solid var(--border);
+}
+.snap-card .top .mark{
+  width:46px; height:46px; border-radius:12px;
+  background:linear-gradient(135deg, var(--gold), var(--orange));
+  display:flex; align-items:center; justify-content:center;
+}
+.snap-card .top .mark svg{width:24px; height:24px;}
+.snap-card .top b{font-family:'Outfit',sans-serif; font-size:16px;}
+.snap-row{display:flex; justify-content:space-between; padding:10px 0; font-size:13.5px;}
+.snap-row span:first-child{color:var(--ink-faint); font-weight:500;}
+.snap-row span:last-child{font-weight:600; text-align:right;}
+
+/* ---------------- PRODUCTS ---------------- */
+.alt-bg{background:var(--white);}
+.product-grid{
+  display:grid;
+  grid-template-columns:repeat(4, 1fr);
+  gap:22px;
+}
+@media (max-width:1024px){ .product-grid{grid-template-columns:repeat(2,1fr);} }
+@media (max-width:560px){ .product-grid{grid-template-columns:1fr;} }
+
+.product-card{
+  background:var(--cream);
+  border:1px solid var(--border);
+  border-radius:16px;
+  overflow:hidden;
+  transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+}
+.product-card:hover{
+  transform:translateY(-7px);
+  box-shadow:0 28px 50px -22px rgba(250,129,47,0.4);
+  border-color:rgba(250,129,47,0.4);
+}
+.product-card .img-wrap{
+  background:linear-gradient(135deg, #f8f6f3 0%, #ede9e3 100%);
+  padding:16px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  height:200px;
+  overflow:hidden;
+  position:relative;
+}
+.product-card .img-wrap img{
+  max-height:100%;
+  max-width:100%;
+  object-fit:contain;
+  transition:transform .4s ease;
+}
+.product-card:hover .img-wrap img{transform:scale(1.06);}
+
+.product-card .card-body{padding:22px 20px 24px;}
+.product-card h3{font-size:15.5px; margin-bottom:8px; line-height:1.35;}
+.product-card p{
+  font-size:12px;
+  font-family:'IBM Plex Mono',monospace;
+  color:var(--ink-faint);
+  text-transform:uppercase;
+  letter-spacing:0.04em;
+  margin-bottom:16px;
+}
+.enquire-link{
+  font-size:13px; font-weight:700; color:var(--orange);
+  display:inline-flex; align-items:center; gap:5px;
+  transition:gap .2s ease;
+}
+.enquire-link:hover{gap:10px;}
+.enquire-link svg{width:13px; height:13px;}
+
+/* ---------------- INDUSTRIES ---------------- */
+.industries-strip{
+  background:linear-gradient(135deg, var(--dusk) 0%, var(--dusk-soft) 100%);
+  color:var(--cream);
+  padding:60px 0;
+}
+.industries-strip .section-head h2{color:var(--white);}
+.industries-strip .section-head p{color:rgba(254,243,226,0.7);}
+.chip-grid{display:flex; flex-wrap:wrap; gap:14px; justify-content:center;}
+.chip{
+  background:rgba(255,255,255,0.08);
+  border:1.5px solid rgba(254,243,226,0.18);
+  color:var(--cream);
+  padding:13px 24px;
+  border-radius:30px;
+  font-size:14.5px; font-weight:600;
+  transition:all .2s ease;
+  cursor:default;
+}
+.chip:hover{border-color:var(--gold); background:rgba(243,198,35,0.15); color:var(--gold);}
+
+/* ---------------- WHY US ---------------- */
+.why-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:24px;
+}
+@media (max-width:880px){ .why-grid{grid-template-columns:repeat(2,1fr);} }
+@media (max-width:560px){ .why-grid{grid-template-columns:1fr;} }
+.why-card{
+  background:var(--white);
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:32px 26px;
+  transition:transform .2s ease, box-shadow .2s ease;
+}
+.why-card:hover{
+  transform:translateY(-4px);
+  box-shadow:0 20px 40px -18px rgba(43,27,14,0.2);
+}
+.why-card .ico{
+  width:46px; height:46px; border-radius:14px;
+  background:linear-gradient(135deg, rgba(243,198,35,0.2), rgba(255,178,44,0.2));
+  border:1.5px solid var(--gold);
+  color:var(--orange);
+  display:flex; align-items:center; justify-content:center;
+  margin-bottom:18px;
+}
+.why-card h3{font-size:17px; margin-bottom:10px;}
+.why-card p{font-size:14px; color:var(--ink-soft); line-height:1.65;}
+
+/* ---------------- RESOURCES ---------------- */
+.resource-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:20px;
+}
+@media (max-width:880px){ .resource-grid{grid-template-columns:repeat(2,1fr);} }
+@media (max-width:480px){ .resource-grid{grid-template-columns:1fr;} }
+.resource-card{
+  background:var(--cream);
+  border:1.5px dashed rgba(43,27,14,0.22);
+  border-radius:16px;
+  padding:32px 22px;
+  text-align:center;
+  transition:all .2s ease;
+}
+.resource-card:hover{
+  border-color:var(--orange);
+  border-style:solid;
+  background:rgba(250,129,47,0.04);
+}
+.resource-card .ico{
+  width:50px; height:50px; margin:0 auto 16px;
+  border-radius:14px;
+  background:var(--white);
+  border:1.5px solid var(--border);
+  display:flex; align-items:center; justify-content:center;
+  color:var(--orange);
+}
+.resource-card h4{font-size:15px; margin-bottom:16px;}
+.resource-card a{
+  font-size:12.5px; font-weight:700; color:var(--orange);
+  border:1.5px solid var(--orange);
+  padding:9px 18px; border-radius:30px;
+  display:inline-block;
+  transition:background .15s ease, color .15s ease;
+}
+.resource-card a:hover{background:var(--orange); color:#fff;}
+
+/* ---------------- CONTACT ---------------- */
+.contact-grid{
+  display:grid;
+  grid-template-columns:0.85fr 1.15fr;
+  gap:50px;
+  align-items:start;
+}
+@media (max-width:880px){ .contact-grid{grid-template-columns:1fr;} }
+
+.contact-card{
+  background:var(--dusk);
+  color:var(--cream);
+  border-radius:20px;
+  padding:40px 32px;
+}
+.contact-card h3{color:#fff; font-size:22px; margin-bottom:10px;}
+.contact-card p.lead{color:rgba(254,243,226,0.7); font-size:14px; margin-bottom:28px;}
+.contact-method{
+  display:flex; align-items:center; gap:14px;
+  padding:14px 0;
+  border-top:1px solid rgba(254,243,226,0.14);
+}
+.contact-method:first-of-type{border-top:none;}
+.contact-method .ico{
+  width:42px; height:42px; border-radius:12px; flex-shrink:0;
+  background:rgba(255,178,44,0.18);
+  color:var(--amber);
+  display:flex; align-items:center; justify-content:center;
+}
+.contact-method .txt span{display:block; font-size:11.5px; color:rgba(254,243,226,0.55); text-transform:uppercase; letter-spacing:0.06em; margin-bottom:2px;}
+.contact-method .txt b{font-size:14.5px; font-weight:600;}
+.contact-method a.act{margin-left:auto; font-size:12px; font-weight:700; color:var(--amber); border:1px solid var(--amber); padding:7px 14px; border-radius:20px; flex-shrink:0; transition:all .15s ease;}
+.contact-method a.act:hover{background:var(--amber); color:var(--dusk);}
+.address-block{margin-top:24px; padding-top:20px; border-top:1px solid rgba(254,243,226,0.14); font-size:13.5px; color:rgba(254,243,226,0.78); line-height:1.6;}
+
+.form-card{
+  background:var(--white);
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:40px 36px;
+  box-shadow:0 20px 50px -20px rgba(43,27,14,0.12);
+}
+.form-card h3{font-size:22px; margin-bottom:6px;}
+.form-card p.lead{color:var(--ink-soft); font-size:14px; margin-bottom:28px;}
+.field-row{display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px;}
+@media (max-width:520px){ .field-row{grid-template-columns:1fr;} }
+.field{display:flex; flex-direction:column; gap:6px; margin-bottom:16px;}
+.field label{font-size:12.5px; font-weight:600; color:var(--ink-soft);}
+.field input, .field select, .field textarea{
+  font-family:'Inter', sans-serif;
+  font-size:14.5px;
+  padding:13px 16px;
+  border:1.5px solid var(--border);
+  border-radius:10px;
+  background:var(--cream);
+  color:var(--ink);
+  outline:none;
+  transition:border-color .15s ease, box-shadow .15s ease;
+}
+.field input:focus, .field select:focus, .field textarea:focus{border-color:var(--orange); box-shadow:0 0 0 3px rgba(250,129,47,0.12);}
+.field textarea{resize:vertical; min-height:100px;}
+.submit-row{display:flex; align-items:center; gap:16px; margin-top:6px; flex-wrap:wrap;}
+.form-success{
+  display:none;
+  align-items:center; gap:10px;
+  background:rgba(243,198,35,0.18);
+  border:1px solid var(--gold);
+  color:var(--ink);
+  padding:12px 18px;
+  border-radius:10px;
+  font-size:13.5px; font-weight:600;
+}
+.form-success.show{display:flex;}
+
+/* ---------------- FOOTER ---------------- */
+footer{
+  background:var(--dusk-soft);
+  color:rgba(254,243,226,0.8);
+  padding:64px 0 28px;
+}
+.footer-grid{
+  display:grid;
+  grid-template-columns:1.4fr 1fr 1fr;
+  gap:40px;
+  margin-bottom:44px;
+}
+@media (max-width:760px){ .footer-grid{grid-template-columns:1fr;} }
+.footer-grid h4{color:#fff; font-size:14px; text-transform:uppercase; letter-spacing:0.08em; margin-bottom:18px; font-family:'IBM Plex Mono',monospace;}
+.footer-grid .logo-text b, .footer-grid .logo-text span{color:#fff;}
+.footer-grid p{font-size:14.5px; line-height:1.75; max-width:320px;}
+.footer-grid ul li{margin-bottom:12px; font-size:14.5px;}
+.footer-grid ul li a{transition:color .15s ease;}
+.footer-grid ul li a:hover{color:var(--amber);}
+.footer-bottom{
+  border-top:1px solid rgba(254,243,226,0.12);
+  padding-top:24px;
+  display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;
+  font-size:12.5px;
+  color:rgba(254,243,226,0.55);
+}
+
+/* ---------------- FLOATING WHATSAPP ---------------- */
+.float-wa{
+  position:fixed; bottom:24px; right:24px; z-index:200;
+  width:60px; height:60px; border-radius:50%;
+  background:#25D366;
+  display:flex; align-items:center; justify-content:center;
+  box-shadow:0 14px 30px -10px rgba(37,211,102,0.6);
+  transition:transform .2s ease;
+}
+.float-wa:hover{transform:scale(1.08);}
+.float-wa svg{width:28px; height:28px;}
+</style>
+</head>
+<body>
+
+<header class="site-nav">
+  <div class="wrap nav-inner">
+    <a href="#home" class="logo">
+      <div class="mark">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><circle cx="12" cy="14" r="5"/><path d="M12 2v3M4.2 7.2l2.1 2.1M19.8 7.2l-2.1 2.1M2 14h3M19 14h3"/></svg>
+      </div>
+      <div class="logo-text">
+        <b>Sunrise Enterprises</b>
+        <span>Testing Innovation</span>
+      </div>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#products">Products</a></li>
+      <li><a href="#industries">Industries</a></li>
+      <li><a href="#why-us">Why Us</a></li>
+      <li><a href="#resources">Resources</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="#contact" class="btn btn-secondary">Request a Quote</a>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<section class="hero" id="home">
+  <div class="hero-sun"></div>
+  <div class="wrap hero-inner">
+    <div class="hero-content">
+      <div class="hero-badge"><span class="dot"></span> Proudly Based in Jaipur, Rajasthan</div>
+      <h1>Testing Innovation.<br>Ensuring Quality.</h1>
+      <p class="lead">Leading manufacturer of plastic pipe testing machines for PVC, uPVC, HDPE, PPR, CPVC &amp; irrigation systems. Precise. Reliable. Built for performance.</p>
+      <div class="btn-row">
+        <a href="#contact" class="btn btn-primary">Request a Quote</a>
+        <a href="#resources" class="btn btn-light">Download Product Catalog</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <img src="assets/asset_1.png" alt="Plastic pipes with water splash" class="hero-pipes" loading="eager">
+    </div>
+  </div>
+  <div class="horizon">
+    <svg viewBox="0 0 1200 90" preserveAspectRatio="none">
+      <rect x="60" y="20" width="40" height="70" fill="rgba(43,27,14,0.18)"/>
+      <rect x="120" y="0" width="26" height="90" fill="rgba(43,27,14,0.18)"/>
+      <rect x="900" y="10" width="34" height="80" fill="rgba(43,27,14,0.18)"/>
+      <rect x="960" y="34" width="60" height="56" fill="rgba(43,27,14,0.18)"/>
+      <rect x="1060" y="0" width="22" height="90" fill="rgba(43,27,14,0.18)"/>
+    </svg>
+  </div>
+</section>
+
+<div class="trust-strip">
+  <div class="wrap trust-inner">
+    <div class="trust-item"><span class="ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-5.6-7-11a7 7 0 0 1 14 0c0 5.4-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></span> PAN India Service</div>
+    <div class="trust-item"><span class="ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.4 8.4 0 0 1-8.4 8.4H4l1.9-3.8A8.4 8.4 0 1 1 21 11.5z"/></svg></span> WhatsApp Quick Inquiry</div>
+    <div class="trust-item"><span class="ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></span> Fast Response Time</div>
+    <div class="trust-item"><span class="ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="7" y="2" width="10" height="20" rx="2"/><line x1="11" y1="18" x2="13" y2="18"/></svg></span> Mobile-Friendly Browsing</div>
+  </div>
+</div>
+
+<section id="about">
+  <div class="wrap about-grid">
+    <div class="reveal">
+      <div class="eyebrow">About Us</div>
+      <h2>Precision-built testing machines, made in Jaipur.</h2>
+      <p class="body">Sunrise Enterprises is a leading manufacturer of plastic pipe testing machines, specializing in high-quality laboratory testing equipment for PVC, uPVC, HDPE, PPR, CPVC pipes and irrigation systems. Every machine we build is designed for precise, repeatable results — backed by hands-on industry expertise and dependable after-sales support.</p>
+      <div class="highlight-list">
+        <div class="highlight-item"><span class="chk">&#10003;</span> Industry Expertise</div>
+        <div class="highlight-item"><span class="chk">&#10003;</span> Customized Solutions</div>
+        <div class="highlight-item"><span class="chk">&#10003;</span> Reliable Support</div>
+        <div class="highlight-item"><span class="chk">&#10003;</span> Precision Engineering</div>
+        <div class="highlight-item"><span class="chk">&#10003;</span> PAN India Service</div>
+      </div>
+    </div>
+    <div class="about-visual reveal">
+      <img src="assets/asset_3.png" alt="Bursting Pressure Testing Machine" class="about-img" loading="lazy">
+    </div>
+  </div>
+</section>
+
+<section id="products" class="alt-bg">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Our Range</div>
+      <h2>Plastic Pipe Testing Machines</h2>
+      <p>Precise, reliable equipment for every stage of plastic pipe quality testing.</p>
+    </div>
+    <div class="product-grid reveal" id="productGrid">
+
+      <div class="product-card">
+        <div class="img-wrap">
+          <img src="assets/asset_2.png" alt="Hydrostatic Pressure Test Apparatus" loading="lazy">
+        </div>
+        <div class="card-body">
+          <h3>Hydrostatic Pressure Test Apparatus</h3>
+          <p>Pressure Testing</p>
+          <a href="#contact" class="enquire-link" data-product="Hydrostatic Pressure Test Apparatus">Enquire Now <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="img-wrap">
+          <img src="assets/asset_3.png" alt="Bursting Pressure Testing Machine" loading="lazy">
+        </div>
+        <div class="card-body">
+          <h3>Bursting Pressure Testing Machine</h3>
+          <p>Pressure Testing</p>
+          <a href="#contact" class="enquire-link" data-product="Bursting Pressure Testing Machine">Enquire Now <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="img-wrap">
+          <img src="assets/asset_4.png" alt="Impact Testing Machine" loading="lazy">
+        </div>
+        <div class="card-body">
+          <h3>Impact Testing Machine</h3>
+          <p>Impact Resistance</p>
+          <a href="#contact" class="enquire-link" data-product="Impact Testing Machine (Falling Weight)">Enquire Now <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="img-wrap">
+          <img src="assets/asset_5.png" alt="Ring Stiffness Testing Machine" loading="lazy">
+        </div>
+        <div class="card-body">
+          <h3>Ring Stiffness Testing Machine</h3>
+          <p>Structural Testing</p>
+          <a href="#contact" class="enquire-link" data-product="Ring Stiffness Testing Machine">Enquire Now <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="img-wrap">
+          <img src="assets/asset_6.png" alt="Tensile Testing Machine" loading="lazy">
+        </div>
+        <div class="card-body">
+          <h3>Tensile Testing Machine</h3>
+          <p>Strength Testing</p>
+          <a href="#contact" class="enquire-link" data-product="Tensile Testing Machine">Enquire Now <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="img-wrap">
+          <img src="assets/asset_7.png" alt="Vicat Softening Point Apparatus" loading="lazy">
+        </div>
+        <div class="card-body">
+          <h3>Vicat Softening Point Apparatus</h3>
+          <p>Thermal Testing</p>
+          <a href="#contact" class="enquire-link" data-product="Vicat Softening Point Test Apparatus">Enquire Now <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="img-wrap">
+          <img src="assets/asset_8.png" alt="Melt Flow Index Tester" loading="lazy">
+        </div>
+        <div class="card-body">
+          <h3>Melt Flow Index Tester</h3>
+          <p>Material Flow</p>
+          <a href="#contact" class="enquire-link" data-product="Melt Flow Index Tester">Enquire Now <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="img-wrap">
+          <img src="assets/asset_9.png" alt="Pipe Notching Machine" loading="lazy">
+        </div>
+        <div class="card-body">
+          <h3>Pipe Notching Machine</h3>
+          <p>Sample Preparation</p>
+          <a href="#contact" class="enquire-link" data-product="Pipe Notching Machine">Enquire Now <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="industries" class="industries-strip">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow" style="color:var(--amber);">Industries We Serve</div>
+      <h2>Trusted Across the Plastic Pipe Sector</h2>
+    </div>
+    <div class="chip-grid reveal">
+      <div class="chip">PVC Manufacturers</div>
+      <div class="chip">uPVC Manufacturers</div>
+      <div class="chip">HDPE Manufacturers</div>
+      <div class="chip">PPR Manufacturers</div>
+      <div class="chip">CPVC Manufacturers</div>
+      <div class="chip">Irrigation Industry</div>
+      <div class="chip">Testing Laboratories</div>
+      <div class="chip">Research Institutions</div>
+    </div>
+  </div>
+</section>
+
+<section id="why-us" class="alt-bg">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Why Choose Us</div>
+      <h2>Built on Precision and Trust</h2>
+    </div>
+    <div class="why-grid reveal">
+      <div class="why-card">
+        <div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/></svg></div>
+        <h3>Precision Engineering</h3>
+        <p>Machines built and calibrated to exacting tolerance standards.</p>
+      </div>
+      <div class="why-card">
+        <div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg></div>
+        <h3>Reliable Results</h3>
+        <p>Consistent, repeatable testing performance you can depend on.</p>
+      </div>
+      <div class="why-card">
+        <div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14.7 6.3a4 4 0 1 1-5.4 5.4l-5 5V20h3.3l5-5a4 4 0 1 1 2.1-8.7z"/></svg></div>
+        <h3>Customized Manufacturing</h3>
+        <p>Machines configured to your exact testing requirements.</p>
+      </div>
+      <div class="why-card">
+        <div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 11.5a8.4 8.4 0 0 1-8.4 8.4H4l1.9-3.8A8.4 8.4 0 1 1 21 11.5z"/></svg></div>
+        <h3>After-Sales Support</h3>
+        <p>Ongoing service that backs every machine, long after installation.</p>
+      </div>
+      <div class="why-card">
+        <div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="12" y1="2" x2="12" y2="22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+        <h3>Competitive Pricing</h3>
+        <p>Industrial-grade quality without industrial-grade overpricing.</p>
+      </div>
+      <div class="why-card">
+        <div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 21V9l9-6 9 6v12"/><path d="M9 21v-6h6v6"/></svg></div>
+        <h3>Industry Experience</h3>
+        <p>Years of domain knowledge across the plastic pipe sector.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="resources">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Technical Resources</div>
+      <h2>Catalogs &amp; Specification Sheets</h2>
+      <p>Request any of the documents below and we'll send them straight to your inbox.</p>
+    </div>
+    <div class="resource-grid reveal">
+      <div class="resource-card">
+        <div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg></div>
+        <h4>Product Catalog</h4>
+        <a href="mailto:jhabarmalchoudhary1974@gmail.com?subject=Request%3A%20Product%20Catalog&body=Hi%20Sunrise%20Enterprises%2C%20please%20send%20me%20your%20full%20product%20catalog.">Request Copy</a>
+      </div>
+      <div class="resource-card">
+        <div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
+        <h4>Technical Datasheets</h4>
+        <a href="mailto:jhabarmalchoudhary1974@gmail.com?subject=Request%3A%20Technical%20Datasheets&body=Hi%20Sunrise%20Enterprises%2C%20please%20send%20me%20the%20technical%20datasheets.">Request Copy</a>
+      </div>
+      <div class="resource-card">
+        <div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="8" x2="16" y2="8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="18" x2="12" y2="18"/></svg></div>
+        <h4>Brochures</h4>
+        <a href="mailto:jhabarmalchoudhary1974@gmail.com?subject=Request%3A%20Brochure&body=Hi%20Sunrise%20Enterprises%2C%20please%20send%20me%20your%20brochure.">Request Copy</a>
+      </div>
+      <div class="resource-card">
+        <div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
+        <h4>Machine Specifications</h4>
+        <a href="mailto:jhabarmalchoudhary1974@gmail.com?subject=Request%3A%20Machine%20Specifications&body=Hi%20Sunrise%20Enterprises%2C%20please%20send%20me%20detailed%20machine%20specifications.">Request Copy</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="alt-bg">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Contact &amp; Inquiry Center</div>
+      <h2>Let's Talk About Your Testing Needs</h2>
+    </div>
+    <div class="contact-grid reveal">
+
+      <div class="contact-card">
+        <h3>Reach Us Directly</h3>
+        <p class="lead">Call, message or email — whichever's easiest for you.</p>
+
+        <div class="contact-method">
+          <div class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.68 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.32 1.85.55 2.81.68A2 2 0 0 1 22 16.92z"/></svg></div>
+          <div class="txt"><span>Call Direct</span><b>98290 50308</b></div>
+          <a class="act" href="tel:+919829050308">Call</a>
+        </div>
+
+        <div class="contact-method">
+          <div class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.68 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.32 1.85.55 2.81.68A2 2 0 0 1 22 16.92z"/></svg></div>
+          <div class="txt"><span>Alternate Line</span><b>8949 444099</b></div>
+          <a class="act" href="tel:+918949444099">Call</a>
+        </div>
+
+        <div class="contact-method">
+          <div class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.4 8.4 0 0 1-8.4 8.4H4l1.9-3.8A8.4 8.4 0 1 1 21 11.5z"/></svg></div>
+          <div class="txt"><span>WhatsApp</span><b>Quick Inquiry</b></div>
+          <a class="act" href="https://wa.me/919829050308?text=Hi%20Sunrise%20Enterprises%2C%20I%27d%20like%20to%20enquire%20about%20your%20pipe%20testing%20machines." target="_blank" rel="noopener">Chat</a>
+        </div>
+
+        <div class="contact-method">
+          <div class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="M22 6l-10 7L2 6"/></svg></div>
+          <div class="txt"><span>Email</span><b>jhabarmalchoudhary1974@gmail.com</b></div>
+          <a class="act" href="mailto:jhabarmalchoudhary1974@gmail.com">Email</a>
+        </div>
+
+        <div class="address-block">
+          <strong style="color:#fff;">Sunrise Enterprises</strong><br>
+          Plot No. 3, Sarna Doongar Industrial Area,<br>
+          Jaipur, Rajasthan
+        </div>
+      </div>
+
+      <div class="form-card">
+        <h3>Request a Quote</h3>
+        <p class="lead">Tell us what you need and we'll get back to you shortly.</p>
+        <form id="inquiryForm">
+          <div class="field-row">
+            <div class="field"><label for="fname">Full Name</label><input type="text" id="fname" required placeholder="Your name"></div>
+            <div class="field"><label for="fcompany">Company Name</label><input type="text" id="fcompany" placeholder="Your company"></div>
+          </div>
+          <div class="field-row">
+            <div class="field"><label for="fphone">Phone</label><input type="tel" id="fphone" required placeholder="+91"></div>
+            <div class="field"><label for="femail">Email</label><input type="email" id="femail" placeholder="you@company.com"></div>
+          </div>
+          <div class="field">
+            <label for="fproduct">Product of Interest</label>
+            <select id="fproduct">
+              <option value="">General Inquiry</option>
+              <option>Hydrostatic Pressure Test Apparatus</option>
+              <option>Bursting Pressure Testing Machine</option>
+              <option>Impact Testing Machine (Falling Weight)</option>
+              <option>Ring Stiffness Testing Machine</option>
+              <option>Tensile Testing Machine</option>
+              <option>Vicat Softening Point Test Apparatus</option>
+              <option>Melt Flow Index Tester</option>
+              <option>Pipe Notching Machine</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="fmsg">Message</label>
+            <textarea id="fmsg" placeholder="Tell us about your requirement..."></textarea>
+          </div>
+          <div class="submit-row">
+            <button type="submit" class="btn btn-primary">Submit Inquiry</button>
+            <div class="form-success" id="formSuccess">&#10003; Thank you! We'll contact you shortly.</div>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div class="logo" style="margin-bottom:16px;">
+          <div class="mark"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><circle cx="12" cy="14" r="5"/><path d="M12 2v3M4.2 7.2l2.1 2.1M19.8 7.2l-2.1 2.1"/></svg></div>
+          <div class="logo-text"><b>Sunrise Enterprises</b><span>Testing Innovation</span></div>
+        </div>
+        <p>Manufacturer of plastic pipe testing machines for PVC, uPVC, HDPE, PPR, CPVC and irrigation systems — proudly built in Jaipur, Rajasthan.</p>
+      </div>
+      <div>
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#products">Products</a></li>
+          <li><a href="#industries">Industries</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Get In Touch</h4>
+        <ul>
+          <li><a href="tel:+919829050308">98290 50308</a></li>
+          <li><a href="tel:+918949444099">8949 444099</a></li>
+          <li><a href="mailto:jhabarmalchoudhary1974@gmail.com">jhabarmalchoudhary1974@gmail.com</a></li>
+          <li>Plot No. 3, Sarna Doongar Industrial Area, Jaipur</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; <span id="year"></span> Sunrise Enterprises. All rights reserved.</span>
+      <span>Testing Innovation. Ensuring Quality.</span>
+    </div>
+  </div>
+</footer>
+
+<a class="float-wa" href="https://wa.me/919829050308?text=Hi%20Sunrise%20Enterprises%2C%20I%27d%20like%20to%20enquire%20about%20your%20pipe%20testing%20machines." target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+  <svg viewBox="0 0 24 24" fill="#fff"><path d="M17.5 14.4c-.3-.1-1.7-.8-1.9-.9-.3-.1-.4-.1-.6.1-.2.3-.7.9-.8 1-.1.2-.3.2-.6.1-.3-.1-1.2-.4-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.1.2-.3.3-.4.1-.2 0-.4 0-.5-.1-.1-.6-1.5-.8-2-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.3-1 1-1 2.3 0 1.4 1 2.7 1.1 2.9.1.2 2 3.1 4.9 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 1.9-1.4.2-.7.2-1.2.2-1.4-.1-.1-.2-.2-.5-.3z"/><path d="M12 2a10 10 0 0 0-8.5 15.3L2 22l4.8-1.5A10 10 0 1 0 12 2z" fill="none" stroke="#fff" stroke-width="1.4"/></svg>
+</a>
+
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+
+var hamburger = document.getElementById('hamburger');
+var navLinks = document.getElementById('navLinks');
+hamburger.addEventListener('click', function(){
+  navLinks.classList.toggle('open');
+});
+navLinks.querySelectorAll('a').forEach(function(a){
+  a.addEventListener('click', function(){ navLinks.classList.remove('open'); });
+});
+
+document.querySelectorAll('.enquire-link').forEach(function(link){
+  link.addEventListener('click', function(){
+    var product = link.getAttribute('data-product');
+    var select = document.getElementById('fproduct');
+    if(product && select){
+      Array.from(select.options).forEach(function(opt){
+        if(opt.text === product) select.value = product;
+      });
+    }
+  });
+});
+
+var form = document.getElementById('inquiryForm');
+var success = document.getElementById('formSuccess');
+form.addEventListener('submit', function(e){
+  e.preventDefault();
+  success.classList.add('show');
+  form.reset();
+  setTimeout(function(){ success.classList.remove('show'); }, 6000);
+});
+
+var revealEls = document.querySelectorAll('.reveal');
+if('IntersectionObserver' in window){
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){
+        entry.target.classList.add('in');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.08 });
+  revealEls.forEach(function(el){ io.observe(el); });
+} else {
+  revealEls.forEach(function(el){ el.classList.add('in'); });
+}
+</script>
+
+</body>
+</html>
